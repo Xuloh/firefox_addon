@@ -1,0 +1,11 @@
+{
+    "manifest_version": 2,
+    "name": "Firefox Addon",
+    "version": "1.0",
+    "author": "Xuloh",
+
+    "description": "A Firefox Addon",
+    "icons": {
+        "200": "icons/icon-200.png"
+    }
+}
