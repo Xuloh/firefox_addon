@@ -1,2 +1,1 @@
-# firefox_addon
-Firefox Addon
+# Firefox Addon
