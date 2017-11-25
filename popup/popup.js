@@ -1,7 +1,10 @@
-console.log("imotep");
+var audio_player = document.getElementById("audio-player");
 var folder = document.getElementById("folder");
 folder.addEventListener("input", function() {
-    console.log(this.files);
-    for(var i = 0; i < this.files.length; i++)
-        console.log(window.URL.createObjectURL(this.files[i]));
+    var file = this.files[0];
+    if(file.type.startsWith("audio/")) {
+        var url = window.URL.createObjectURL(file);
+        audio_player.src = url;
+        audio_player.play();
+    }
 })
