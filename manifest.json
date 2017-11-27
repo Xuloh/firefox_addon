@@ -13,5 +13,9 @@
         "default_icon": "icons/icon-200.png",
         "default_title": "Firefox Addon",
         "default_popup": "popup/popup.html"
+    },
+
+    "background": {
+        "page": "background/player.html"
     }
 }
