@@ -2,12 +2,16 @@
 <html>
     <head>
         <meta charset="utf-8" />
+        <link type="text/css" rel="stylesheet" href="/font-awesome-4.7.0/css/font-awesome.min.css" />
         <link type="text/css" rel="stylesheet" href="popup.css" />
     </head>
 
     <body>
-        <div>
-            <button id="file-button">Play an audio file</button>
+        <span id="title">=== Audio Player ===</span>
+        <div class="button-group">
+            <i id="file-button" title="Open an audio file" class="fa fa-file-audio-o button"></i>
+            <i id="play-button" title="Play" class="fa fa-play button"></i>
+            <i id="pause-button" title="Pause" class="fa fa-pause button"></i>
         </div>
     </body>
     <script src="popup.js"></script>
