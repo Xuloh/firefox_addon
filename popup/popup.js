@@ -16,5 +16,5 @@ browser.runtime.getBackgroundPage().then(function(background_page) {
 
     pause_button.addEventListener("click", function() {
         audio_player.pause();
-    })
+    });
 });
