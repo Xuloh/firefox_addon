@@ -8,7 +8,11 @@ browser.runtime.getBackgroundPage().then(function(background_page) {
 
     switch_now_playing();
 
-    audio_player.addEventListener("ended", switch_now_playing);
+    audio_player.addEventListener("ended", player_ended_listener);
+
+    window.addEventListener("unload", function() {
+        audio_player.removeEventListener("ended", player_ended_listener);
+    });
 
     file_button.addEventListener("click", function() {
         file_input.click();
@@ -29,6 +33,11 @@ browser.runtime.getBackgroundPage().then(function(background_page) {
     mute_button.addEventListener("click", function() {
         audio_player.muted = !audio_player.muted;
     });
+
+    function player_ended_listener() {
+        switch_play_pause_button();
+        switch_now_playing();
+    }
 
     function play_pause() {
         if(audio_player.paused)
@@ -55,11 +64,13 @@ browser.runtime.getBackgroundPage().then(function(background_page) {
         if(background_page.now_playing != null) {
             nothing_playing.style.display = "none";
             now_playing.style.display = "inline";
+            playing.style.display = "inline";
             playing.textContent = background_page.now_playing;
         }
         else {
             nothing_playing.style.display = "inline";
             now_playing.style.display = "none";
+            playing.style.display = "none";
             playing.textContent = "";
         }
     }
