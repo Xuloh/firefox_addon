@@ -64,10 +64,14 @@ browser.runtime.getBackgroundPage().then(function(background_page) {
 
     // Updates the now playing display
     function switch_now_playing() {
-        if(background_page.now_playing != null)
+        if(background_page.now_playing != null) {
             now_playing.textContent = "Now playing : " + background_page.now_playing;
-        else
+            now_playing.title = background_page.now_playing;
+        }
+        else {
             now_playing.textContent = "Nothing playing";
+            now_playing.title = "";
+        }
     }
 });
 
