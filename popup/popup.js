@@ -6,11 +6,9 @@ browser.runtime.getBackgroundPage().then(function(background_page) {
     switch_play_pause_button();
     switch_now_playing();
 
-
     window.addEventListener("unload", function() {
         audio_player.removeEventListener("ended", player_ended_listener);
     });
-
 
     audio_player.addEventListener("ended", player_ended_listener);
 
