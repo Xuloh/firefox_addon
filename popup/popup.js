@@ -3,17 +3,18 @@ browser.runtime.getBackgroundPage().then(function(background_page) {
     var audio_player = background_page.document.getElementById("audio-player");
 
     init_vars_by_id();
-
     switch_play_pause_button();
-
     switch_now_playing();
 
-    audio_player.addEventListener("ended", player_ended_listener);
 
     window.addEventListener("unload", function() {
         audio_player.removeEventListener("ended", player_ended_listener);
     });
 
+
+    audio_player.addEventListener("ended", player_ended_listener);
+
+    // Register buttons event listeners
     file_button.addEventListener("click", function() {
         file_input.click();
     });
@@ -34,11 +35,13 @@ browser.runtime.getBackgroundPage().then(function(background_page) {
         audio_player.muted = !audio_player.muted;
     });
 
+    // Called when the audio file has finished playing
     function player_ended_listener() {
         switch_play_pause_button();
         switch_now_playing();
     }
 
+    // Plays/pauses the audio file
     function play_pause() {
         if(audio_player.paused)
             audio_player.play();
@@ -47,6 +50,7 @@ browser.runtime.getBackgroundPage().then(function(background_page) {
         switch_play_pause_button();
     }
 
+    // Switches the play/pause button
     function switch_play_pause_button() {
         if(audio_player.paused) {
             play_pause_button.classList.remove("fa-pause");
@@ -60,6 +64,7 @@ browser.runtime.getBackgroundPage().then(function(background_page) {
         }
     }
 
+    // Updates the now playing display
     function switch_now_playing() {
         if(background_page.now_playing != null) {
             nothing_playing.style.display = "none";
@@ -76,6 +81,7 @@ browser.runtime.getBackgroundPage().then(function(background_page) {
     }
 });
 
+// Adds a variable for each DOM element with an id
 function init_vars_by_id() {
     var elements_by_id = document.querySelectorAll("*[id]");
     for(var i = 0; i < elements_by_id.length; i++) {
