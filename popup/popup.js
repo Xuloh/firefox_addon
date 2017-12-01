@@ -36,9 +36,9 @@ browser.runtime.getBackgroundPage().then(function(background_page) {
     loop_button.addEventListener("click", function() {
         audio_player.loop = !audio_player.loop;
         if(audio_player.loop)
-            loop_button.classList.add("toggled");
+            this.classList.add("toggled");
         else
-            loop_button.classList.remove("toggled");
+            this.classList.remove("toggled");
     });
 
     // Called when the audio file has finished playing
