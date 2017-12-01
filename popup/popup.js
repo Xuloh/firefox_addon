@@ -7,6 +7,7 @@ browser.runtime.getBackgroundPage().then(function(background_page) {
     toggle_play_pause_button();
     toggle_mute_button();
     toggle_loop_button();
+    set_volume_input_value();
 
     window.addEventListener("unload", function() {
         audio_player.removeEventListener("ended", player_ended_listener);
@@ -14,7 +15,7 @@ browser.runtime.getBackgroundPage().then(function(background_page) {
 
     audio_player.addEventListener("ended", player_ended_listener);
 
-    // Register buttons event listeners
+    // Register controls event listeners
     file_button.addEventListener("click", function() {
         file_input.click();
     });
@@ -24,12 +25,19 @@ browser.runtime.getBackgroundPage().then(function(background_page) {
     volume_up_button.addEventListener("click", function() {
         if(audio_player.volume + 0.1 <= 1.0)
             audio_player.volume += 0.1;
+        set_volume_input_value()
     });
 
     volume_down_button.addEventListener("click", function() {
         if(audio_player.volume - 0.1 >= 0)
             audio_player.volume -= 0.1;
+        set_volume_input_value();
     });
+
+    volume_input.addEventListener("input", function() {
+        audio_player.volume = this.value;
+        console.log(audio_player.volume);
+    })
 
     mute_button.addEventListener("click", function() {
         audio_player.muted = !audio_player.muted;
@@ -96,6 +104,11 @@ browser.runtime.getBackgroundPage().then(function(background_page) {
             loop_button.classList.add("toggled");
         else
             loop_button.classList.remove("toggled");
+    }
+
+    // Sets the volume input value to the audio player volume
+    function set_volume_input_value() {
+        volume_input.value = audio_player.volume;
     }
 
 });

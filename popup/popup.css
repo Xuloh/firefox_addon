@@ -1,6 +1,6 @@
 body {
     background-color: #fff;
-    width: 222px;
+    width: 271px;
 }
 
 #now-playing {
@@ -11,13 +11,32 @@ body {
     white-space: nowrap;
 }
 
+#volume-input {
+    width: 60px;
+}
+
+#volume-input::-moz-range-thumb {
+    height: 12px;
+    width: 12px;
+    border-radius: 50%;
+}
+
+#volume-input:hover::-moz-range-thumb {
+    background-color: #CCC;
+}
+
 .button {
     color: #000;
     display: inline-block;
-    font-size: 25px;
+    font-size: 23px;
     padding: 5px;
     text-align: center;
-    width: 37px;
+    width: 34px;
+}
+
+.button.small {
+    font-size: 18px;
+    width: 27px;
 }
 
 .button:hover {
@@ -29,5 +48,8 @@ body {
 }
 
 .button-group {
+    align-items: center;
     display: flex;
+    justify-content: center;
+    padding: 5px;
 }
