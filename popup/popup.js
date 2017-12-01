@@ -3,8 +3,10 @@ browser.runtime.getBackgroundPage().then(function(background_page) {
     var audio_player = background_page.document.getElementById("audio-player");
 
     init_vars_by_id();
-    toggle_play_pause_button();
     switch_now_playing();
+    toggle_play_pause_button();
+    toggle_mute_button();
+    toggle_loop_button();
 
     window.addEventListener("unload", function() {
         audio_player.removeEventListener("ended", player_ended_listener);
@@ -31,18 +33,12 @@ browser.runtime.getBackgroundPage().then(function(background_page) {
 
     mute_button.addEventListener("click", function() {
         audio_player.muted = !audio_player.muted;
-        if(audio_player.muted)
-            this.classList.add("toggled");
-        else
-            this.classList.remove("toggled");
+        toggle_mute_button();
     });
 
     loop_button.addEventListener("click", function() {
         audio_player.loop = !audio_player.loop;
-        if(audio_player.loop)
-            this.classList.add("toggled");
-        else
-            this.classList.remove("toggled");
+        toggle_loop_button();
     });
 
     // Called when the audio file has finished playing
@@ -84,6 +80,22 @@ browser.runtime.getBackgroundPage().then(function(background_page) {
             now_playing.textContent = "Nothing playing";
             now_playing.title = "";
         }
+    }
+
+    // Toggles the mute button
+    function toggle_mute_button() {
+        if(audio_player.muted)
+            mute_button.classList.add("toggled");
+        else
+            mute_button.classList.remove("toggled");
+    }
+
+    // Toggles the loop button
+    function toggle_loop_button() {
+        if(audio_player.loop)
+            loop_button.classList.add("toggled");
+        else
+            loop_button.classList.remove("toggled");
     }
 
 });
