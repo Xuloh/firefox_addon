@@ -3,7 +3,7 @@ browser.runtime.getBackgroundPage().then(function(background_page) {
     var audio_player = background_page.document.getElementById("audio-player");
 
     init_vars_by_id();
-    switch_play_pause_button();
+    toggle_play_pause_button();
     switch_now_playing();
 
     window.addEventListener("unload", function() {
@@ -47,7 +47,7 @@ browser.runtime.getBackgroundPage().then(function(background_page) {
 
     // Called when the audio file has finished playing
     function player_ended_listener() {
-        switch_play_pause_button();
+        toggle_play_pause_button();
         switch_now_playing();
     }
 
@@ -57,11 +57,11 @@ browser.runtime.getBackgroundPage().then(function(background_page) {
             audio_player.play();
         else
             audio_player.pause();
-        switch_play_pause_button();
+        toggle_play_pause_button();
     }
 
-    // Switches the play/pause button
-    function switch_play_pause_button() {
+    // Toggles the play/pause button
+    function toggle_play_pause_button() {
         if(audio_player.paused) {
             play_pause_button.classList.remove("fa-pause");
             play_pause_button.classList.add("fa-play");
@@ -85,6 +85,7 @@ browser.runtime.getBackgroundPage().then(function(background_page) {
             now_playing.title = "";
         }
     }
+
 });
 
 // Adds a variable for each DOM element with an id
