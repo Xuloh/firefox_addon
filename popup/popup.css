@@ -1,34 +1,23 @@
 body {
     background-color: #fff;
-    padding: 10px;
-    width: 250px;
-}
-
-#title {
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 5px;
-    text-align: center;
+    width: 222px;
 }
 
 #now-playing {
     overflow: hidden;
+    padding: 5px;
     text-align: center;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
 .button {
-    background-color: rgba(255, 255, 255, 0);
-    border: 1px solid rgba(255, 255, 255, 0);
-    border-radius: 3px;
-
     color: #000;
     display: inline-block;
-    font-size: 20px;
+    font-size: 25px;
     padding: 5px;
     text-align: center;
-    width: 32px;
+    width: 37px;
 }
 
 .button:hover {
@@ -41,5 +30,4 @@ body {
 
 .button-group {
     display: flex;
-    justify-content: space-around;
 }
