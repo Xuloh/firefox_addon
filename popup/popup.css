@@ -39,6 +39,10 @@ body {
     background-color: rgba(204, 204, 204, 0.3);
 }
 
+.button:active {
+    background-color: rgba(153, 153, 153, 0.3);
+}
+
 .button-group {
     display: flex;
     justify-content: space-around;
