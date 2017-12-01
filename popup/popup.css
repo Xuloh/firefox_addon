@@ -35,11 +35,7 @@ body {
     background-color: rgba(204, 204, 204, 0.3);
 }
 
-.button.toggled {
-    background-color: rgba(204, 204, 204, 0.3);
-}
-
-.button:active {
+.button:active, .button.toggled {
     background-color: rgba(153, 153, 153, 0.3);
 }
 
