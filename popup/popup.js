@@ -31,6 +31,10 @@ browser.runtime.getBackgroundPage().then(function(background_page) {
 
     mute_button.addEventListener("click", function() {
         audio_player.muted = !audio_player.muted;
+        if(audio_player.muted)
+            this.classList.add("toggled");
+        else
+            this.classList.remove("toggled");
     });
 
     loop_button.addEventListener("click", function() {
