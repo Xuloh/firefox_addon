@@ -35,6 +35,10 @@ body {
     background-color: rgba(204, 204, 204, 0.3);
 }
 
+.button.toggled {
+    background-color: rgba(204, 204, 204, 0.3);
+}
+
 .button-group {
     display: flex;
     justify-content: space-around;

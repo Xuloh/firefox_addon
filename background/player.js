@@ -2,9 +2,11 @@ var audio_player = document.getElementById("audio-player");
 var file_input = document.getElementById("file-input");
 
 audio_player.addEventListener("ended", function() {
-    URL.revokeObjectURL(this.src);
-    this.src = "";
-    now_playing = null;
+    if(!this.loop) {
+        URL.revokeObjectURL(this.src);
+        this.src = "";
+        now_playing = null;
+    }
 });
 
 file_input.addEventListener("input", function() {

@@ -33,6 +33,14 @@ browser.runtime.getBackgroundPage().then(function(background_page) {
         audio_player.muted = !audio_player.muted;
     });
 
+    loop_button.addEventListener("click", function() {
+        audio_player.loop = !audio_player.loop;
+        if(audio_player.loop)
+            loop_button.classList.add("toggled");
+        else
+            loop_button.classList.remove("toggled");
+    });
+
     // Called when the audio file has finished playing
     function player_ended_listener() {
         switch_play_pause_button();
