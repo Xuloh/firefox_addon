@@ -8,12 +8,15 @@ browser.runtime.getBackgroundPage().then(function(background_page) {
     toggle_mute_button();
     toggle_loop_button();
     set_volume_input_value();
+    set_current_time_input();
 
     window.addEventListener("unload", function() {
         audio_player.removeEventListener("ended", player_ended_listener);
+        audio_player.removeEventListener("timeupdate", player_timeupdate_listener);
     });
 
     audio_player.addEventListener("ended", player_ended_listener);
+    audio_player.addEventListener("timeupdate", player_timeupdate_listener);
 
     // Register controls event listeners
     file_button.addEventListener("click", function() {
@@ -53,10 +56,20 @@ browser.runtime.getBackgroundPage().then(function(background_page) {
         toggle_loop_button();
     });
 
+    current_time_input.addEventListener("input", function() {
+        audio_player.currentTime = this.value;
+    });
+
     // Called when the audio file has finished playing
     function player_ended_listener() {
         toggle_play_pause_button();
         switch_now_playing();
+        reset_current_time_input();
+    }
+
+    // Called to update the current time input's value
+    function player_timeupdate_listener() {
+        current_time_input.value = audio_player.currentTime;
     }
 
     // Plays/pauses the audio file
@@ -113,6 +126,22 @@ browser.runtime.getBackgroundPage().then(function(background_page) {
     // Sets the volume input value to the audio player volume
     function set_volume_input_value() {
         volume_input.value = audio_player.volume;
+    }
+
+    // Sets the current time input max value and value and enables it
+    function set_current_time_input() {
+        if(background_page.now_playing != null) {
+            current_time_input.max = audio_player.duration;
+            current_time_input.value = audio_player.currentTime;
+            current_time_input.disabled = false;
+        }
+    }
+
+    // Resets the current time input max value and value and disables it
+    function reset_current_time_input() {
+        current_time_input.max = 1;
+        current_time_input.value = 0;
+        current_time_input.disabled = true;
     }
 
 });
