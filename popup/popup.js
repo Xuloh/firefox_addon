@@ -43,7 +43,6 @@ browser.runtime.getBackgroundPage().then(function(background_page) {
 
     volume_input.addEventListener("input", function() {
         audio_player.volume = this.value;
-        console.log(audio_player.volume);
     })
 
     mute_button.addEventListener("click", function() {
