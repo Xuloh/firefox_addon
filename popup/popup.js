@@ -25,20 +25,20 @@ browser.runtime.getBackgroundPage().then(function(background_page) {
 
     play_pause_button.addEventListener("click", play_pause);
 
-    volume_up_button.addEventListener("click", function() {
-        if(audio_player.volume + 0.1 <= 1.0)
-            audio_player.volume += 0.1;
-        else
-            audio_player.volume = 1.0;
-        set_volume_input_value()
-    });
-
     volume_down_button.addEventListener("click", function() {
         if(audio_player.volume - 0.1 >= 0.0)
             audio_player.volume -= 0.1;
         else
             audio_player.volume = 0.0;
         set_volume_input_value();
+    });
+    
+    volume_up_button.addEventListener("click", function() {
+        if(audio_player.volume + 0.1 <= 1.0)
+            audio_player.volume += 0.1;
+        else
+            audio_player.volume = 1.0;
+        set_volume_input_value()
     });
 
     volume_input.addEventListener("input", function() {
