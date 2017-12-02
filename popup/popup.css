@@ -11,18 +11,22 @@ body {
     white-space: nowrap;
 }
 
-#volume-input {
-    width: 60px;
-}
-
-#volume-input::-moz-range-thumb {
+input[type="range"]::-moz-range-thumb {
     height: 12px;
     width: 12px;
     border-radius: 50%;
 }
 
-#volume-input:hover::-moz-range-thumb {
+input[type="range"]:hover::-moz-range-thumb {
     background-color: #CCC;
+}
+
+#volume-input {
+    width: 60px;
+}
+
+#current-time-input {
+    width: 100%;
 }
 
 .button {
