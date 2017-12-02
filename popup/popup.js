@@ -69,6 +69,7 @@ browser.runtime.getBackgroundPage().then(function(background_page) {
 
     // Called to update the current time input's value
     function player_timeupdate_listener() {
+        current_time_label.textContent = toTimeStr(audio_player.currentTime);
         current_time_input.value = audio_player.currentTime;
     }
 
@@ -134,6 +135,9 @@ browser.runtime.getBackgroundPage().then(function(background_page) {
             current_time_input.max = audio_player.duration;
             current_time_input.value = audio_player.currentTime;
             current_time_input.disabled = false;
+
+            current_time_label.textContent = toTimeStr(audio_player.currentTime);
+            duration_label.textContent = toTimeStr(audio_player.duration);
         }
     }
 
@@ -142,6 +146,9 @@ browser.runtime.getBackgroundPage().then(function(background_page) {
         current_time_input.max = 1;
         current_time_input.value = 0;
         current_time_input.disabled = true;
+
+        current_time_label.textContent = "0:00";
+        duration_label.textContent = "0:00";
     }
 
 });
@@ -153,4 +160,23 @@ function init_vars_by_id() {
         var var_name = elements_by_id[i].id.split("-").join("_");
         window[var_name] = elements_by_id[i];
     }
+}
+
+// Formats the given number of seconds to a hh:mm:ss string
+function toTimeStr(seconds) {
+    seconds = parseInt(seconds);
+    var hours, minutes;
+
+    hours = parseInt(seconds / 3600);
+    seconds = seconds % 3600;
+    minutes = parseInt(seconds / 60);
+    seconds = seconds % 60;
+
+    if(seconds < 10)
+        seconds = "0" + seconds;
+
+    if(hours > 0)
+        return hours + ":" + minutes + ":" + seconds;
+    else
+        return minutes + ":" + seconds;
 }
