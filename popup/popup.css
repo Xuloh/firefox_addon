@@ -54,6 +54,6 @@ input[type="range"]:hover::-moz-range-thumb {
 .button-group {
     align-items: center;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     padding: 5px;
 }

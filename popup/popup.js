@@ -59,6 +59,22 @@ browser.runtime.getBackgroundPage().then(function(background_page) {
         audio_player.currentTime = this.value;
     });
 
+    backward_button.addEventListener("click", function() {
+        var current_time = audio_player.currentTime;
+        if(current_time - 10 >= 0)
+            audio_player.currentTime = current_time - 10;
+        else
+            audio_player.currentTime = 0;
+    });
+
+    forward_button.addEventListener("click", function() {
+        var current_time = audio_player.currentTime;
+        if(current_time + 10 <= audio_player.duration)
+            audio_player.currentTime = current_time + 10;
+        else
+            audio_player.currentTime = audio_player.duration;
+    })
+
     // Called when the audio file has finished playing
     function player_ended_listener() {
         toggle_play_pause_button();
