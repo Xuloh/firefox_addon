@@ -32,7 +32,7 @@ browser.runtime.getBackgroundPage().then(function(background_page) {
             audio_player.volume = 0.0;
         set_volume_input_value();
     });
-    
+
     volume_up_button.addEventListener("click", function() {
         if(audio_player.volume + 0.1 <= 1.0)
             audio_player.volume += 0.1;
@@ -79,7 +79,10 @@ browser.runtime.getBackgroundPage().then(function(background_page) {
     function player_ended_listener() {
         toggle_play_pause_button();
         switch_now_playing();
-        reset_current_time_input();
+        if(background_page != null)
+            set_current_time_input();
+        else
+            reset_current_time_input();
     }
 
     // Called to update the current time input's value
