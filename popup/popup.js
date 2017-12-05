@@ -79,10 +79,7 @@ browser.runtime.getBackgroundPage().then(function(background_page) {
     function player_ended_listener() {
         toggle_play_pause_button();
         switch_now_playing();
-        if(background_page != null)
-            set_current_time_input();
-        else
-            reset_current_time_input();
+        set_current_time_input();
     }
 
     // Called to update the current time input's value
@@ -157,16 +154,14 @@ browser.runtime.getBackgroundPage().then(function(background_page) {
             current_time_label.textContent = toTimeStr(audio_player.currentTime);
             duration_label.textContent = toTimeStr(audio_player.duration);
         }
-    }
+        else {
+            current_time_input.max = 1;
+            current_time_input.value = 0;
+            current_time_input.disabled = true;
 
-    // Resets the current time input max value and value and disables it
-    function reset_current_time_input() {
-        current_time_input.max = 1;
-        current_time_input.value = 0;
-        current_time_input.disabled = true;
-
-        current_time_label.textContent = "0:00";
-        duration_label.textContent = "0:00";
+            current_time_label.textContent = "0:00";
+            duration_label.textContent = "0:00";
+        }
     }
 
 });
