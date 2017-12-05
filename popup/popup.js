@@ -3,12 +3,8 @@ browser.runtime.getBackgroundPage().then(function(background_page) {
     var audio_player = background_page.document.getElementById("audio-player");
 
     init_vars_by_id();
-    switch_now_playing();
-    toggle_play_pause_button();
-    toggle_mute_button();
-    toggle_loop_button();
-    set_volume_input_value();
-    set_current_time_input();
+
+    update_gui();
 
     window.addEventListener("unload", function() {
         audio_player.removeEventListener("ended", player_ended_listener);
@@ -30,7 +26,7 @@ browser.runtime.getBackgroundPage().then(function(background_page) {
             audio_player.volume -= 0.1;
         else
             audio_player.volume = 0.0;
-        set_volume_input_value();
+        update_gui("volume_input");
     });
 
     volume_up_button.addEventListener("click", function() {
@@ -38,7 +34,7 @@ browser.runtime.getBackgroundPage().then(function(background_page) {
             audio_player.volume += 0.1;
         else
             audio_player.volume = 1.0;
-        set_volume_input_value()
+        update_gui("volume_input")
     });
 
     volume_input.addEventListener("input", function() {
@@ -47,12 +43,12 @@ browser.runtime.getBackgroundPage().then(function(background_page) {
 
     mute_button.addEventListener("click", function() {
         audio_player.muted = !audio_player.muted;
-        toggle_mute_button();
+        update_gui("mute_button");
     });
 
     loop_button.addEventListener("click", function() {
         audio_player.loop = !audio_player.loop;
-        toggle_loop_button();
+        update_gui("loop_button");
     });
 
     current_time_input.addEventListener("input", function() {
@@ -75,11 +71,11 @@ browser.runtime.getBackgroundPage().then(function(background_page) {
             audio_player.currentTime = audio_player.duration;
     })
 
+    // *** Listeners *** //
+
     // Called when the audio file has finished playing
     function player_ended_listener() {
-        toggle_play_pause_button();
-        switch_now_playing();
-        set_current_time_input();
+        update_gui(["play_pause_button", "now_playing", "current_time_input"]);
     }
 
     // Called to update the current time input's value
@@ -94,8 +90,10 @@ browser.runtime.getBackgroundPage().then(function(background_page) {
             audio_player.play();
         else
             audio_player.pause();
-        toggle_play_pause_button();
+        update_gui("play_pause_button");
     }
+
+    // *** GUI UPDATE FUNCTIONS *** //
 
     // Toggles the play/pause button
     function toggle_play_pause_button() {
@@ -162,6 +160,31 @@ browser.runtime.getBackgroundPage().then(function(background_page) {
             current_time_label.textContent = "0:00";
             duration_label.textContent = "0:00";
         }
+    }
+
+    // Calls the necessary functions to fully update the gui
+    function update_gui(gui = "") {
+        var gui_funcs = {
+            "now_playing": switch_now_playing,
+            "play_pause_button": toggle_play_pause_button,
+            "mute_button": toggle_mute_button,
+            "loop_button": toggle_loop_button,
+            "volume_input": set_volume_input_value,
+            "current_time_input": set_current_time_input
+        }
+
+        if(gui === "")
+            for(var gui_element in gui_funcs)
+                gui_funcs[gui_element]();
+        else
+            if(typeof gui === "string")
+                gui_funcs[gui]();
+            else
+                if(Array.isArray(gui))
+                    for(var i = 0; i < gui.length; i++)
+                        gui_funcs[gui[i]]();
+                else
+                    console.log("Unrecognized parameter " + gui + " in function update_gui");
     }
 
 });
