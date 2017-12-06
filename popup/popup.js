@@ -103,7 +103,7 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
 // Adds a variable for each DOM element with an id
 function initVarsById() {
     var guiElements = document.querySelectorAll("*[id][gui-element]");
-    for(var i = 0; i < guiElements.length; i++) {
+    for(let i = 0; i < guiElements.length; i++) {
         var guiElement = guiElements[i].id;
         window[guiElement] = guiElements[i];
     }
@@ -134,7 +134,7 @@ class GUIUpdater {
 
         this.guiUpdates = {};
         var guiElements = document.querySelectorAll("*[id][gui-element][gui-update]");
-        for(var i = 0; i < guiElements.length; i++) {
+        for(let i = 0; i < guiElements.length; i++) {
             var guiElement = guiElements[i];
             this.guiUpdates[guiElement.id] = window[guiElement.getAttribute("gui-update")].bind(this);
         }
@@ -150,7 +150,7 @@ class GUIUpdater {
                 this.guiUpdates[gui]();
             else
                 if(Array.isArray(gui))
-                    for(var i = 0; i < gui.length; i++)
+                    for(let i = 0; i < gui.length; i++)
                         this.guiUpdates[gui[i]]();
                 else
                     console.log("Unrecognized parameter " + gui + " in function guiUpdater.updateGUI");
