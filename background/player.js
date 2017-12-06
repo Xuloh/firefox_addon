@@ -52,6 +52,7 @@ class Playlist {
 
 var audioPlayer = document.getElementById("audioPlayer");
 var fileInput = document.getElementById("fileInput");
+var addToPlaylistInput = document.getElementById("addToPlaylistInput");
 
 var playlist = new Playlist();
 
@@ -69,16 +70,28 @@ audioPlayer.addEventListener("ended", function() {
 });
 
 fileInput.addEventListener("input", function() {
-    for(var i = 0; i < this.files.length; i++) {
-        var file = this.files[i];
-        if(file.type.startsWith("audio/")) {
-            playlist.add(file);
+    audioPlayer.pause();
+    playlist.empty();
 
-            if(nowPlaying == null) {
-                playTrack(playlist.next());
-            }
-        }
+    for(let i = 0; i < this.files.length; i++) {
+        var file = this.files[i];
+
+        if(file.type.startsWith("audio/"))
+            playlist.add(file);
     }
+
+    playTrack(playlist.next());
+});
+
+addToPlaylistInput.addEventListener("input", function() {
+    for(let i = 0; i < this.files.length; i++) {
+        var file = this.files[i];
+
+        if(file.type.startsWith("audio/"))
+            playlist.add(file);
+    }
+    if(nowPlaying === null)
+        playTrack(playlist.next());
 });
 
 // Plays the given track

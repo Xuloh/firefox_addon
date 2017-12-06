@@ -1,8 +1,9 @@
 initVarsById();
 
 browser.runtime.getBackgroundPage().then(function(backgroundPage) {
-    var fileInput = backgroundPage.fileInput;
     var audioPlayer = backgroundPage.audioPlayer;
+    var fileInput = backgroundPage.fileInput;
+    var addToPlaylistInput = backgroundPage.addToPlaylistInput;
 
     var guiUpdater = new GUIUpdater({
         "backgroundPage": backgroundPage,
@@ -24,6 +25,10 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
     fileButton.addEventListener("click", function() {
         fileInput.click();
     });
+
+    addToPlaylistButton.addEventListener("click", function() {
+        addToPlaylistInput.click();
+    })
 
     playPauseButton.addEventListener("click", playPause);
 
