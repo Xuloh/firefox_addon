@@ -80,7 +80,7 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
 
     // Called when the audio file has finished playing
     function playerEndedListener() {
-        guiUpdater.updateGUI(["playPauseButton", "nowPlaying", "currentTimeInput"]);
+        guiUpdater.updateGUI(["playPauseButton", "nowPlaying", "currentTimeInput", "durationLabel"]);
     }
 
     // Called to update the current time input's value
@@ -214,7 +214,6 @@ function setCurrentTimeInput() {
         currentTimeInput.disabled = false;
 
         currentTimeLabel.textContent = toTimeStr(this.context.audioPlayer.currentTime);
-        durationLabel.textContent = toTimeStr(this.context.audioPlayer.duration);
     }
     else {
         currentTimeInput.max = 1;
@@ -222,6 +221,13 @@ function setCurrentTimeInput() {
         currentTimeInput.disabled = true;
 
         currentTimeLabel.textContent = "0:00";
-        durationLabel.textContent = "0:00";
     }
+}
+
+// Sets the duration durationLabel
+function setDurationLabel() {
+    if(this.context.backgroundPage.nowPlaying != null)
+        durationLabel.textContent = toTimeStr(this.context.audioPlayer.duration);
+    else
+        durationLabel.textContent = "0:00";
 }
