@@ -8,7 +8,7 @@ class Playlist {
         else
             this.playlist = [];
 
-        this.currentTrack = 0;
+        this.currentTrack = -1;
     }
 
     // Adds the given track to the playlist
@@ -28,7 +28,7 @@ class Playlist {
     // Returns the next track, or null if the end of the playlist was reached
     next() {
         if(this.currentTrack < this.playlist.length)
-            return this.playlist[this.currentTrack++];
+            return this.playlist[++this.currentTrack];
         else
             return null;
     }
@@ -41,6 +41,7 @@ class Playlist {
     // Empties the playlist
     empty() {
         this.playlist = [];
+        this.currentTrack = -1;
     }
 
     // Returns the number of tracks in the playlist
