@@ -31,7 +31,7 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
             audioPlayer.volume -= 0.1;
         else
             audioPlayer.volume = 0.0;
-        guiUpdater.updateGUI("volume_input");
+        guiUpdater.updateGUI("volumeInput");
     });
 
     volumeUpButton.addEventListener("click", function() {
@@ -39,7 +39,7 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
             audioPlayer.volume += 0.1;
         else
             audioPlayer.volume = 1.0;
-        guiUpdater.updateGUI("volume_input")
+        guiUpdater.updateGUI("volumeInput")
     });
 
     volumeInput.addEventListener("input", function() {
@@ -48,12 +48,12 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
 
     muteButton.addEventListener("click", function() {
         audioPlayer.muted = !audioPlayer.muted;
-        guiUpdater.updateGUI("mute_button");
+        guiUpdater.updateGUI("muteButton");
     });
 
     loopButton.addEventListener("click", function() {
         audioPlayer.loop = !audioPlayer.loop;
-        guiUpdater.updateGUI("loop_button");
+        guiUpdater.updateGUI("loopButton");
     });
 
     currentTimeInput.addEventListener("input", function() {
@@ -80,7 +80,7 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
 
     // Called when the audio file has finished playing
     function playerEndedListener() {
-        guiUpdater.updateGUI(["play_pause_button", "now_playing", "current_time_input"]);
+        guiUpdater.updateGUI(["playPauseButton", "nowPlaying", "currentTimeInput"]);
     }
 
     // Called to update the current time input's value
@@ -95,7 +95,7 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
             audioPlayer.play();
         else
             audioPlayer.pause();
-        guiUpdater.updateGUI("play_pause_button");
+        guiUpdater.updateGUI("playPauseButton");
     }
 
 });
@@ -131,29 +131,27 @@ function toTimeStr(seconds) {
 class GUIUpdater {
     constructor(context) {
         this.context = context;
+
+        this.guiUpdates = {};
+        var guiElements = document.querySelectorAll("*[id][gui-element][gui-update]");
+        for(var i = 0; i < guiElements.length; i++) {
+            var guiElement = guiElements[i];
+            this.guiUpdates[guiElement.id] = window[guiElement.getAttribute("gui-update")].bind(this);
+        }
     }
 
     // Calls the necessary functions to fully update the gui
     updateGUI(gui = "") {
-        var guiFuncs = {
-            "now_playing": switchNowPlaying.bind(this),
-            "play_pause_button": togglePlayPauseButton.bind(this),
-            "mute_button": toggleMuteButton.bind(this),
-            "loop_button": toggleLoopButton.bind(this),
-            "volume_input": setVolumeInputValue.bind(this),
-            "current_time_input": setCurrentTimeInput.bind(this)
-        };
-
         if(gui === "")
-            for(var guiElement in guiFuncs)
-                guiFuncs[guiElement]();
+            for(var guiElement in this.guiUpdates)
+                this.guiUpdates[guiElement]();
         else
-            if(typeof gui === "string" && gui in guiFuncs)
-                guiFuncs[gui]();
+            if(typeof gui === "string" && gui in this.guiUpdates)
+                this.guiUpdates[gui]();
             else
                 if(Array.isArray(gui))
                     for(var i = 0; i < gui.length; i++)
-                        guiFuncs[gui[i]]();
+                        this.guiUpdates[gui[i]]();
                 else
                     console.log("Unrecognized parameter " + gui + " in function guiUpdater.updateGUI");
     }
