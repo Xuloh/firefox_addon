@@ -1,201 +1,214 @@
-browser.runtime.getBackgroundPage().then(function(background_page) {
-    var file_input = background_page.document.getElementById("file-input");
-    var audio_player = background_page.document.getElementById("audio-player");
+browser.runtime.getBackgroundPage().then(function(backgroundPage) {
+    var fileInput = backgroundPage.document.getElementById("file-input");
+    var audioPlayer = backgroundPage.document.getElementById("audio-player");
 
-    init_vars_by_id();
+    initVarsById();
 
-    update_gui();
+    updateGUI();
 
     window.addEventListener("unload", function() {
-        audio_player.removeEventListener("ended", player_ended_listener);
-        audio_player.removeEventListener("timeupdate", player_timeupdate_listener);
+        audioPlayer.removeEventListener("ended", playerEndedListener);
+        audioPlayer.removeEventListener("timeupdate", playerTimeUpdateListener);
     });
 
-    audio_player.addEventListener("ended", player_ended_listener);
-    audio_player.addEventListener("timeupdate", player_timeupdate_listener);
+    audioPlayer.addEventListener("ended", playerEndedListener);
+    audioPlayer.addEventListener("timeupdate", playerTimeUpdateListener);
 
     // Register controls event listeners
-    file_button.addEventListener("click", function() {
-        file_input.click();
+    fileButton.addEventListener("click", function() {
+        fileInput.click();
     });
 
-    play_pause_button.addEventListener("click", play_pause);
+    playPauseButton.addEventListener("click", playPause);
 
-    volume_down_button.addEventListener("click", function() {
-        if(audio_player.volume - 0.1 >= 0.0)
-            audio_player.volume -= 0.1;
+    volumeDownButton.addEventListener("click", function() {
+        if(audioPlayer.volume - 0.1 >= 0.0)
+            audioPlayer.volume -= 0.1;
         else
-            audio_player.volume = 0.0;
-        update_gui("volume_input");
+            audioPlayer.volume = 0.0;
+        updateGUI("volume_input");
     });
 
-    volume_up_button.addEventListener("click", function() {
-        if(audio_player.volume + 0.1 <= 1.0)
-            audio_player.volume += 0.1;
+    volumeUpButton.addEventListener("click", function() {
+        if(audioPlayer.volume + 0.1 <= 1.0)
+            audioPlayer.volume += 0.1;
         else
-            audio_player.volume = 1.0;
-        update_gui("volume_input")
+            audioPlayer.volume = 1.0;
+        updateGUI("volume_input")
     });
 
-    volume_input.addEventListener("input", function() {
-        audio_player.volume = this.value;
+    volumeInput.addEventListener("input", function() {
+        audioPlayer.volume = this.value;
     })
 
-    mute_button.addEventListener("click", function() {
-        audio_player.muted = !audio_player.muted;
-        update_gui("mute_button");
+    muteButton.addEventListener("click", function() {
+        audioPlayer.muted = !audioPlayer.muted;
+        updateGUI("mute_button");
     });
 
-    loop_button.addEventListener("click", function() {
-        audio_player.loop = !audio_player.loop;
-        update_gui("loop_button");
+    loopButton.addEventListener("click", function() {
+        audioPlayer.loop = !audioPlayer.loop;
+        updateGUI("loop_button");
     });
 
-    current_time_input.addEventListener("input", function() {
-        audio_player.currentTime = this.value;
+    currentTimeInput.addEventListener("input", function() {
+        audioPlayer.currentTime = this.value;
     });
 
-    backward_button.addEventListener("click", function() {
-        var current_time = audio_player.currentTime;
-        if(current_time - 10 >= 0)
-            audio_player.currentTime = current_time - 10;
+    backwardButton.addEventListener("click", function() {
+        var currentTime = audioPlayer.currentTime;
+        if(currentTime - 10 >= 0)
+            audioPlayer.currentTime = currentTime - 10;
         else
-            audio_player.currentTime = 0;
+            audioPlayer.currentTime = 0;
     });
 
-    forward_button.addEventListener("click", function() {
-        var current_time = audio_player.currentTime;
-        if(current_time + 10 <= audio_player.duration)
-            audio_player.currentTime = current_time + 10;
+    forwardButton.addEventListener("click", function() {
+        var currentTime = audioPlayer.currentTime;
+        if(currentTime + 10 <= audioPlayer.duration)
+            audioPlayer.currentTime = currentTime + 10;
         else
-            audio_player.currentTime = audio_player.duration;
+            audioPlayer.currentTime = audioPlayer.duration;
     })
 
     // *** Listeners *** //
 
     // Called when the audio file has finished playing
-    function player_ended_listener() {
-        update_gui(["play_pause_button", "now_playing", "current_time_input"]);
+    function playerEndedListener() {
+        updateGUI(["playPauseButton", "now_playing", "current_time_input"]);
     }
 
     // Called to update the current time input's value
-    function player_timeupdate_listener() {
-        current_time_label.textContent = toTimeStr(audio_player.currentTime);
-        current_time_input.value = audio_player.currentTime;
+    function playerTimeUpdateListener() {
+        currentTimeLabel.textContent = toTimeStr(audioPlayer.currentTime);
+        currentTimeInput.value = audioPlayer.currentTime;
     }
 
     // Plays/pauses the audio file
-    function play_pause() {
-        if(audio_player.paused)
-            audio_player.play();
+    function playPause() {
+        if(audioPlayer.paused)
+            audioPlayer.play();
         else
-            audio_player.pause();
-        update_gui("play_pause_button");
+            audioPlayer.pause();
+        updateGUI("playPauseButton");
     }
 
     // *** GUI UPDATE FUNCTIONS *** //
 
     // Toggles the play/pause button
-    function toggle_play_pause_button() {
-        if(audio_player.paused) {
-            play_pause_button.classList.remove("fa-pause");
-            play_pause_button.classList.add("fa-play");
-            play_pause_button.title = "Play";
+    function togglePlayPauseButton() {
+        if(audioPlayer.paused) {
+            playPauseButton.classList.remove("fa-pause");
+            playPauseButton.classList.add("fa-play");
+            playPauseButton.title = "Play";
         }
         else {
-            play_pause_button.classList.remove("fa-play");
-            play_pause_button.classList.add("fa-pause");
-            play_pause_button.title = "Pause";
+            playPauseButton.classList.remove("fa-play");
+            playPauseButton.classList.add("fa-pause");
+            playPauseButton.title = "Pause";
         }
     }
 
     // Updates the now playing display
-    function switch_now_playing() {
-        if(background_page.now_playing != null) {
-            now_playing.textContent = background_page.now_playing;
-            now_playing.title = background_page.now_playing;
+    function switchNowPlaying() {
+        if(backgroundPage.nowPlaying != null) {
+            nowPlaying.textContent = backgroundPage.nowPlaying;
+            nowPlaying.title = backgroundPage.nowPlaying;
         }
         else {
-            now_playing.textContent = "Nothing playing";
-            now_playing.title = "";
+            nowPlaying.textContent = "Nothing playing";
+            nowPlaying.title = "";
         }
     }
 
     // Toggles the mute button
-    function toggle_mute_button() {
-        if(audio_player.muted)
-            mute_button.classList.add("toggled");
+    function toggleMuteButton() {
+        if(audioPlayer.muted)
+            muteButton.classList.add("toggled");
         else
-            mute_button.classList.remove("toggled");
+            muteButton.classList.remove("toggled");
     }
 
     // Toggles the loop button
-    function toggle_loop_button() {
-        if(audio_player.loop)
-            loop_button.classList.add("toggled");
+    function toggleLoopButton() {
+        if(audioPlayer.loop)
+            loopButton.classList.add("toggled");
         else
-            loop_button.classList.remove("toggled");
+            loopButton.classList.remove("toggled");
     }
 
     // Sets the volume input value to the audio player volume
-    function set_volume_input_value() {
-        volume_input.value = audio_player.volume;
+    function setVolumeInputValue() {
+        volumeInput.value = audioPlayer.volume;
     }
 
     // Sets the current time input max value and value and enables it
-    function set_current_time_input() {
-        if(background_page.now_playing != null) {
-            current_time_input.max = audio_player.duration;
-            current_time_input.value = audio_player.currentTime;
-            current_time_input.disabled = false;
+    function setCurrentTimeInput() {
+        if(backgroundPage.nowPlaying != null) {
+            currentTimeInput.max = audioPlayer.duration;
+            currentTimeInput.value = audioPlayer.currentTime;
+            currentTimeInput.disabled = false;
 
-            current_time_label.textContent = toTimeStr(audio_player.currentTime);
-            duration_label.textContent = toTimeStr(audio_player.duration);
+            currentTimeLabel.textContent = toTimeStr(audioPlayer.currentTime);
+            durationLabel.textContent = toTimeStr(audioPlayer.duration);
         }
         else {
-            current_time_input.max = 1;
-            current_time_input.value = 0;
-            current_time_input.disabled = true;
+            currentTimeInput.max = 1;
+            currentTimeInput.value = 0;
+            currentTimeInput.disabled = true;
 
-            current_time_label.textContent = "0:00";
-            duration_label.textContent = "0:00";
+            currentTimeLabel.textContent = "0:00";
+            durationLabel.textContent = "0:00";
         }
     }
 
     // Calls the necessary functions to fully update the gui
-    function update_gui(gui = "") {
-        var gui_funcs = {
-            "now_playing": switch_now_playing,
-            "play_pause_button": toggle_play_pause_button,
-            "mute_button": toggle_mute_button,
-            "loop_button": toggle_loop_button,
-            "volume_input": set_volume_input_value,
-            "current_time_input": set_current_time_input
+    function updateGUI(gui = "") {
+        var guiFuncs = {
+            "now_playing": switchNowPlaying,
+            "play_pause_button": togglePlayPauseButton,
+            "mute_button": toggleMuteButton,
+            "loop_button": toggleLoopButton,
+            "volume_input": setVolumeInputValue,
+            "current_time_input": setCurrentTimeInput
         }
 
         if(gui === "")
-            for(var gui_element in gui_funcs)
-                gui_funcs[gui_element]();
+            for(var guiElement in guiFuncs)
+                guiFuncs[guiElement]();
         else
             if(typeof gui === "string")
-                gui_funcs[gui]();
+                guiFuncs[gui]();
             else
                 if(Array.isArray(gui))
                     for(var i = 0; i < gui.length; i++)
-                        gui_funcs[gui[i]]();
+                        guiFuncs[gui[i]]();
                 else
-                    console.log("Unrecognized parameter " + gui + " in function update_gui");
+                    console.log("Unrecognized parameter " + gui + " in function updateGUI");
     }
 
 });
 
 // Adds a variable for each DOM element with an id
-function init_vars_by_id() {
-    var elements_by_id = document.querySelectorAll("*[id]");
-    for(var i = 0; i < elements_by_id.length; i++) {
-        var var_name = elements_by_id[i].id.split("-").join("_");
-        window[var_name] = elements_by_id[i];
-    }
+function initVarsById() {
+    // var elementsById = document.querySelectorAll("*[id]");
+    // for(var i = 0; i < elementsById.length; i++) {
+    //     var varName = elementsById[i].id.split("-").join("_");
+    //     window[varName] = elementsById[i];
+    // }
+    window["fileButton"] = document.getElementById("file-button");
+    window["playPauseButton"] = document.getElementById("play-pause-button");
+    window["loopButton"] = document.getElementById("loop-button");
+    window["volumeDownButton"] = document.getElementById("volume-down-button");
+    window["volumeInput"] = document.getElementById("volume-input");
+    window["volumeUpButton"] = document.getElementById("volume-up-button");
+    window["muteButton"] = document.getElementById("mute-button");
+    window["nowPlaying"] = document.getElementById("now-playing");
+    window["backwardButton"] = document.getElementById("backward-button");
+    window["currentTimeLabel"] = document.getElementById("current-time-label");
+    window["durationLabel"] = document.getElementById("duration-label");
+    window["forwardButton"] = document.getElementById("forward-button");
+    window["currentTimeInput"] = document.getElementById("current-time-input");
 }
 
 // Formats the given number of seconds to a hh:mm:ss string
