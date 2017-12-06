@@ -8,34 +8,34 @@
 
     <body>
         <div class="button-group">
-            <i id="fileButton" title="Open an audio file" class="fa fa-file-audio-o button" var ></i>
+            <i id="fileButton" title="Open an audio file" class="fa fa-file-audio-o button" gui-element ></i>
 
-            <i id="playPauseButton" class="fa button" var ></i>
+            <i id="playPauseButton" class="fa button" gui-element ></i>
 
-            <i id="loopButton" title="Loop" class="fa fa-refresh button" var ></i>
+            <i id="loopButton" title="Loop" class="fa fa-refresh button" gui-element ></i>
 
-            <i id="volumeDownButton" title="Volume down" class="fa fa-volume-down button small" var ></i>
-            <input id="volumeInput" type="range" title="Volume" min="0" max="1" step="0.01" value="1" var />
-            <i id="volumeUpButton" title="Volume up" class="fa fa-volume-up button small" var ></i>
-            <i id="muteButton" title="Mute" class="fa fa-volume-off button small" var ></i>
+            <i id="volumeDownButton" title="Volume down" class="fa fa-volume-down button small" gui-element ></i>
+            <input id="volumeInput" type="range" title="Volume" min="0" max="1" step="0.01" value="1" gui-element />
+            <i id="volumeUpButton" title="Volume up" class="fa fa-volume-up button small" gui-element ></i>
+            <i id="muteButton" title="Mute" class="fa fa-volume-off button small" gui-element ></i>
         </div>
 
-        <div id="nowPlaying" var>
+        <div id="nowPlaying" gui-element>
             Nothing playing
         </div>
 
         <div class="button-group">
-            <i id="backwardButton" title="Backward" class="fa fa-backward button" var ></i>
+            <i id="backwardButton" title="Backward" class="fa fa-backward button" gui-element ></i>
             <span>
-                <span id="currentTimeLabel" var >0:00</span>
+                <span id="currentTimeLabel" gui-element >0:00</span>
                 /
-                <span id="durationLabel" var >0:00</span>
+                <span id="durationLabel" gui-element >0:00</span>
             </span>
-            <i id="forwardButton" title="Forward" class="fa fa-forward button" var ></i>
+            <i id="forwardButton" title="Forward" class="fa fa-forward button" gui-element ></i>
         </div>
 
         <div class="button-group">
-            <input id="currentTimeInput" type="range" min="0" max="1" value="0" step="1" disabled var />
+            <input id="currentTimeInput" type="range" min="0" max="1" value="0" step="1" disabled gui-element />
         </div>
 
         <script src="popup.js"></script>
