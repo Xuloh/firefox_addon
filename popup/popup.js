@@ -102,10 +102,10 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
 
 // Adds a variable for each DOM element with an id
 function initVarsById() {
-    var elementsById = document.querySelectorAll("*[id][gui-element]");
-    for(var i = 0; i < elementsById.length; i++) {
-        var varName = elementsById[i].id;
-        window[varName] = elementsById[i];
+    var guiElements = document.querySelectorAll("*[id][gui-element]");
+    for(var i = 0; i < guiElements.length; i++) {
+        var guiElement = guiElements[i].id;
+        window[guiElement] = guiElements[i];
     }
 }
 
