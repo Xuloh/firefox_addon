@@ -1,4 +1,7 @@
+// Class used to store and manipulate a playlist
 class Playlist {
+
+    // If an array is given, the playlist is initialised with it
     constructor(playlist = null) {
         if(playlist != null && Array.isArray(playlist))
             this.playlist = playlist;
@@ -8,6 +11,8 @@ class Playlist {
         this.currentTrack = 0;
     }
 
+    // Adds the given track to the playlist
+    // If an array is given, adds all the tracks it contains
     add(track) {
         if(Array.isArray(track))
             this.playlist = this.playlist.concat(track);
@@ -15,10 +20,12 @@ class Playlist {
             this.playlist.push(track);
     }
 
+    // Returns true if a next track is available
     hasNext() {
         return this.currentTrack < this.playlist.length;
     }
 
+    // Returns the next track, or null if the end of the playlist was reached
     next() {
         if(this.currentTrack < this.playlist.length)
             return this.playlist[this.currentTrack++];
@@ -26,14 +33,17 @@ class Playlist {
             return null;
     }
 
+    // Returns the track at the given index
     get(index) {
         return this.playlist[index];
     }
 
+    // Empties the playlist
     empty() {
         this.playlist = [];
     }
 
+    // Returns the number of tracks in the playlist
     length() {
         return this.playlist.length;
     }
@@ -70,6 +80,7 @@ fileInput.addEventListener("input", function() {
     }
 });
 
+// Plays the given track
 function playTrack(track) {
     var url = URL.createObjectURL(track);
     audioPlayer.src = url;

@@ -16,10 +16,11 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
         audioPlayer.removeEventListener("timeupdate", playerTimeUpdateListener);
     });
 
+    // *** Register controls event listeners *** //
+
     audioPlayer.addEventListener("ended", playerEndedListener);
     audioPlayer.addEventListener("timeupdate", playerTimeUpdateListener);
 
-    // Register controls event listeners
     fileButton.addEventListener("click", function() {
         fileInput.click();
     });
@@ -132,7 +133,18 @@ function toTimeStr(seconds) {
 
 // *** GUI UPDATE STUFF *** //
 
+/*
+ * Class that can associate a GUI element name to a function used to update this element
+ * It creates its own collection of element name/update function using the current Document
+ * It looks for HTML elements that have an id, gui-element and gui-update attribute
+ * The gui-element tells it that this HTML element is in fact a gui-element
+ * The id is used as the name of the element
+ * the gui-update gives the name of the update function
+ * (this functions needs to exist in the class' global scope)
+ */
 class GUIUpdater {
+
+    // The context object is available in all the update functions and can contain anything
     constructor(context) {
         this.context = context;
 
@@ -144,7 +156,8 @@ class GUIUpdater {
         }
     }
 
-    // Calls the necessary functions to fully update the gui
+    // Calls the update function(s) of the specified GUI element(s)
+    // If "" is given, calls all the update functions
     updateGUI(gui = "") {
         if(gui === "")
             for(var guiElement in this.guiUpdates)
