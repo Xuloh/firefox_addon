@@ -8,34 +8,34 @@
 
     <body>
         <div class="button-group">
-            <i id="file-button" title="Open an audio file" class="fa fa-file-audio-o button"></i>
+            <i id="fileButton" title="Open an audio file" class="fa fa-file-audio-o button"></i>
 
-            <i id="play-pause-button" class="fa button"></i>
+            <i id="playPauseButton" class="fa button"></i>
 
-            <i id="loop-button" title="Loop" class="fa fa-refresh button"></i>
+            <i id="loopButton" title="Loop" class="fa fa-refresh button"></i>
 
-            <i id="volume-down-button" title="Volume down" class="fa fa-volume-down button small"></i>
-            <input id="volume-input" type="range" title="Volume" min="0" max="1" step="0.01" value="1"/>
-            <i id="volume-up-button" title="Volume up" class="fa fa-volume-up button small"></i>
-            <i id="mute-button" title="Mute" class="fa fa-volume-off button small"></i>
+            <i id="volumeDownButton" title="Volume down" class="fa fa-volume-down button small"></i>
+            <input id="volumeInput" type="range" title="Volume" min="0" max="1" step="0.01" value="1"/>
+            <i id="volumeUpButton" title="Volume up" class="fa fa-volume-up button small"></i>
+            <i id="muteButton" title="Mute" class="fa fa-volume-off button small"></i>
         </div>
 
-        <div id="now-playing">
+        <div id="nowPlaying">
             Nothing playing
         </div>
 
         <div class="button-group">
-            <i id="backward-button" title="Backward" class="fa fa-backward button"></i>
+            <i id="backwardButton" title="Backward" class="fa fa-backward button"></i>
             <span>
-                <span id="current-time-label">0:00</span>
+                <span id="currentTimeLabel">0:00</span>
                 /
-                <span id="duration-label">0:00</span>
+                <span id="durationLabel">0:00</span>
             </span>
-            <i id="forward-button" title="Forward" class="fa fa-forward button"></i>
+            <i id="forwardButton" title="Forward" class="fa fa-forward button"></i>
         </div>
 
         <div class="button-group">
-            <input id="current-time-input" type="range" min="0" max="1" value="0" step="1" disabled />
+            <input id="currentTimeInput" type="range" min="0" max="1" value="0" step="1" disabled />
         </div>
 
         <script src="popup.js"></script>

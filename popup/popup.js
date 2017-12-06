@@ -191,24 +191,11 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
 
 // Adds a variable for each DOM element with an id
 function initVarsById() {
-    // var elementsById = document.querySelectorAll("*[id]");
-    // for(var i = 0; i < elementsById.length; i++) {
-    //     var varName = elementsById[i].id.split("-").join("_");
-    //     window[varName] = elementsById[i];
-    // }
-    window["fileButton"] = document.getElementById("file-button");
-    window["playPauseButton"] = document.getElementById("play-pause-button");
-    window["loopButton"] = document.getElementById("loop-button");
-    window["volumeDownButton"] = document.getElementById("volume-down-button");
-    window["volumeInput"] = document.getElementById("volume-input");
-    window["volumeUpButton"] = document.getElementById("volume-up-button");
-    window["muteButton"] = document.getElementById("mute-button");
-    window["nowPlaying"] = document.getElementById("now-playing");
-    window["backwardButton"] = document.getElementById("backward-button");
-    window["currentTimeLabel"] = document.getElementById("current-time-label");
-    window["durationLabel"] = document.getElementById("duration-label");
-    window["forwardButton"] = document.getElementById("forward-button");
-    window["currentTimeInput"] = document.getElementById("current-time-input");
+    var elementsById = document.querySelectorAll("*[id]");
+    for(var i = 0; i < elementsById.length; i++) {
+        var varName = elementsById[i].id;
+        window[varName] = elementsById[i];
+    }
 }
 
 // Formats the given number of seconds to a hh:mm:ss string

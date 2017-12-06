@@ -3,7 +3,7 @@ body {
     width: 271px;
 }
 
-#now-playing {
+#nowPlaying {
     overflow: hidden;
     padding: 5px;
     text-align: center;
@@ -21,11 +21,11 @@ input[type="range"]:hover::-moz-range-thumb {
     background-color: #CCC;
 }
 
-#volume-input {
+#volumeInput {
     width: 60px;
 }
 
-#current-time-input {
+#currentTimeInput {
     width: 100%;
 }
 
