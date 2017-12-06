@@ -1,5 +1,5 @@
-var audioPlayer = document.getElementById("audio-player");
-var fileInput = document.getElementById("file-input");
+var audioPlayer = document.getElementById("audioPlayer");
+var fileInput = document.getElementById("fileInput");
 
 var playlist = [];
 var currentFile = 0;
