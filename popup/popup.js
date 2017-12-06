@@ -1,6 +1,6 @@
 browser.runtime.getBackgroundPage().then(function(backgroundPage) {
-    var fileInput = backgroundPage.document.getElementById("fileInput");
-    var audioPlayer = backgroundPage.document.getElementById("audioPlayer");
+    var fileInput = backgroundPage.fileInput;
+    var audioPlayer = backgroundPage.audioPlayer;
 
     initVarsById();
 
