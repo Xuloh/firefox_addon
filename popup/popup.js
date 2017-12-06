@@ -1,3 +1,5 @@
+initVarsById();
+
 browser.runtime.getBackgroundPage().then(function(backgroundPage) {
     var fileInput = backgroundPage.fileInput;
     var audioPlayer = backgroundPage.audioPlayer;
@@ -6,8 +8,6 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
         "backgroundPage": backgroundPage,
         "audioPlayer": audioPlayer
     });
-
-    initVarsById();
 
     guiUpdater.updateGUI();
 
