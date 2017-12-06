@@ -57,3 +57,15 @@ input[type="range"]:hover::-moz-range-thumb {
     justify-content: space-around;
     padding: 5px;
 }
+
+.icon-stack {
+    position: relative;
+}
+
+.icon-stack .fa.stack-se {
+    font-size: 0.5em;
+    position: absolute;
+    bottom: 0px;
+    right: 3px;
+    text-shadow: #fff -1px -1px, #fff 1px 1px;
+}
