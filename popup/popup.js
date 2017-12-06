@@ -100,6 +100,8 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
 
 });
 
+// *** MISC FUNCTIONS *** //
+
 // Adds a variable for each DOM element with an id
 function initVarsById() {
     var guiElements = document.querySelectorAll("*[id][gui-element]");
@@ -127,6 +129,8 @@ function toTimeStr(seconds) {
     else
         return minutes + ":" + seconds;
 }
+
+// *** GUI UPDATE STUFF *** //
 
 class GUIUpdater {
     constructor(context) {
@@ -156,8 +160,6 @@ class GUIUpdater {
                     console.log("Unrecognized parameter " + gui + " in function guiUpdater.updateGUI");
     }
 }
-
-// *** GUI UPDATE FUNCTIONS *** //
 
 // Toggles the play/pause button
 function togglePlayPauseButton() {
