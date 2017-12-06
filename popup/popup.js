@@ -75,7 +75,7 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
 
     // Called when the audio file has finished playing
     function playerEndedListener() {
-        updateGUI(["playPauseButton", "now_playing", "current_time_input"]);
+        updateGUI(["play_pause_button", "now_playing", "current_time_input"]);
     }
 
     // Called to update the current time input's value
@@ -90,7 +90,7 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
             audioPlayer.play();
         else
             audioPlayer.pause();
-        updateGUI("playPauseButton");
+        updateGUI("play_pause_button");
     }
 
     // *** GUI UPDATE FUNCTIONS *** //
@@ -177,7 +177,7 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
             for(var guiElement in guiFuncs)
                 guiFuncs[guiElement]();
         else
-            if(typeof gui === "string")
+            if(typeof gui === "string" && gui in guiFuncs)
                 guiFuncs[gui]();
             else
                 if(Array.isArray(gui))
@@ -191,7 +191,7 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
 
 // Adds a variable for each DOM element with an id
 function initVarsById() {
-    var elementsById = document.querySelectorAll("*[id]");
+    var elementsById = document.querySelectorAll("*[id][var]");
     for(var i = 0; i < elementsById.length; i++) {
         var varName = elementsById[i].id;
         window[varName] = elementsById[i];
