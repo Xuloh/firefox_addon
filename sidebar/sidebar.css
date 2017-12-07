@@ -1,0 +1,20 @@
+body {
+    height: 100vh;
+}
+
+.playlist-item {
+    border: solid 1px #CCC;
+    margin: 0 5px 5px;
+    padding: 5px;
+}
+
+#playlist-empty-message {
+    height: 100%;
+    width: 100%;
+
+    align-items: center;
+    display: flex;
+    justify-content: center;
+
+    overflow: hidden;
+}

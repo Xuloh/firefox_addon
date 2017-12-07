@@ -16,7 +16,16 @@
         "browser_style": true
     },
 
+    "sidebar_action": {
+        "default_icon": "icons/icon-200.png",
+        "default_title": "Playlist",
+        "default_panel": "sidebar/sidebar.html",
+        "browser_style": true
+    },
+
     "background": {
         "page": "background/player.html"
-    }
+    },
+
+    "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
 }
