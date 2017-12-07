@@ -22,7 +22,7 @@ class Playlist {
 
     // Returns true if a next track is available
     hasNext() {
-        return this.currentTrack < this.playlist.length;
+        return this.currentTrack != -1 && this.currentTrack < this.playlist.length;
     }
 
     // Returns the next track, or null if the end of the playlist was reached
