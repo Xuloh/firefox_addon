@@ -9,16 +9,22 @@
     <body>
         <div class="button-group">
             <i id="fileButton" title="Open an audio file" class="fa fa-file-audio-o button" gui-element ></i>
-            <span id="addToPlaylistButton" title="Add a file to the playlist" class="fa fa-file-audio-o button icon-stack" gui-element>
+
+            <span id="addToPlaylistButton" title="Add a file to the playlist" class="fa fa-file-audio-o button icon-stack" gui-element >
                 <i class="fa fa-plus stack-se"></i>
             </span>
+
+            <i id="emptyButton" title="Empty playlist" class="fa fa-trash-o button" gui-element ></i>
             <i id="playPauseButton" class="fa button" gui-element gui-update="togglePlayPauseButton"></i>
 
             <i id="loopButton" title="Loop" class="fa fa-refresh button" gui-element gui-update="toggleLoopButton"></i>
 
             <i id="volumeDownButton" title="Volume down" class="fa fa-volume-down button small" gui-element ></i>
+
             <input id="volumeInput" type="range" title="Volume" min="0" max="1" step="0.01" value="1" gui-element gui-update="setVolumeInputValue"/>
+
             <i id="volumeUpButton" title="Volume up" class="fa fa-volume-up button small" gui-element ></i>
+
             <i id="muteButton" title="Mute" class="fa fa-volume-off button small" gui-element gui-update="toggleMuteButton"></i>
         </div>
 
