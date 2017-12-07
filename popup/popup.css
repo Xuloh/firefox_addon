@@ -25,10 +25,6 @@ input[type="range"]:hover::-moz-range-thumb {
     width: 60px;
 }
 
-#currentTimeInput {
-    width: 100%;
-}
-
 .button {
     color: #000;
     display: inline-block;
@@ -56,6 +52,10 @@ input[type="range"]:hover::-moz-range-thumb {
     display: flex;
     justify-content: space-around;
     padding: 5px;
+}
+
+.button-group .fill {
+    flex-grow: 1;
 }
 
 .icon-stack {

@@ -15,17 +15,24 @@
             </span>
 
             <i id="emptyButton" title="Empty playlist" class="fa fa-trash-o button" gui-element ></i>
-            <i id="playPauseButton" class="fa button" gui-element gui-update="togglePlayPauseButton"></i>
 
             <i id="loopButton" title="Loop" class="fa fa-refresh button" gui-element gui-update="toggleLoopButton"></i>
+
+            <i id="muteButton" title="Mute" class="fa fa-volume-off button" gui-element gui-update="toggleMuteButton"></i>
+        </div>
+
+        <div class="button-group">
+            <i id="backwardButton" title="Backward" class="fa fa-backward button small" gui-element ></i>
+
+            <i id="playPauseButton" class="fa button small" gui-element gui-update="togglePlayPauseButton"></i>
+
+            <i id="forwardButton" title="Forward" class="fa fa-forward button small" gui-element ></i>
 
             <i id="volumeDownButton" title="Volume down" class="fa fa-volume-down button small" gui-element ></i>
 
             <input id="volumeInput" type="range" title="Volume" min="0" max="1" step="0.01" value="1" gui-element gui-update="setVolumeInputValue"/>
 
             <i id="volumeUpButton" title="Volume up" class="fa fa-volume-up button small" gui-element ></i>
-
-            <i id="muteButton" title="Mute" class="fa fa-volume-off button small" gui-element gui-update="toggleMuteButton"></i>
         </div>
 
         <div id="nowPlaying" gui-element gui-update="switchNowPlaying">
@@ -33,17 +40,13 @@
         </div>
 
         <div class="button-group">
-            <i id="backwardButton" title="Backward" class="fa fa-backward button" gui-element ></i>
             <span>
                 <span id="currentTimeLabel" gui-element >0:00</span>
                 /
                 <span id="durationLabel" gui-element gui-update="setDurationLabel">0:00</span>
             </span>
-            <i id="forwardButton" title="Forward" class="fa fa-forward button" gui-element ></i>
-        </div>
 
-        <div class="button-group">
-            <input id="currentTimeInput" type="range" min="0" max="1" value="0" step="1" disabled gui-element gui-update="setCurrentTimeInput"/>
+            <input id="currentTimeInput" class="fill" type="range" min="0" max="1" value="0" step="1" disabled gui-element gui-update="setCurrentTimeInput"/>
         </div>
 
         <script src="popup.js"></script>
