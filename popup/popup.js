@@ -17,12 +17,18 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
     window.addEventListener("unload", function() {
         audioPlayer.removeEventListener("ended", playerEndedListener);
         audioPlayer.removeEventListener("timeupdate", playerTimeUpdateListener);
+        audioPlayer.removeEventListener("play", playPauseListener);
+        audioPlayer.removeEventListener("pause", playPauseListener);
     });
 
     // *** Register controls event listeners *** //
 
+    var playPauseListener = guiUpdater.updateGUI.bind(guiUpdater, "playPauseButton");
+
     audioPlayer.addEventListener("ended", playerEndedListener);
     audioPlayer.addEventListener("timeupdate", playerTimeUpdateListener);
+    audioPlayer.addEventListener("play", playPauseListener);
+    audioPlayer.addEventListener("pause", playPauseListener);
 
     fileButton.addEventListener("click", function() {
         fileInput.click();
@@ -117,7 +123,6 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
             audioPlayer.play();
         else
             audioPlayer.pause();
-        guiUpdater.updateGUI("playPauseButton");
     }
 
 });
@@ -211,7 +216,7 @@ function setCurrentTimeInput() {
             }, {"once": true});
         else
             currentTimeInput.max = this.context.audioPlayer.duration;
-            
+
         currentTimeInput.value = this.context.audioPlayer.currentTime;
         currentTimeInput.disabled = false;
 
