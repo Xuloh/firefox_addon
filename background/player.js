@@ -101,20 +101,21 @@ audioPlayer.addEventListener("ended", function() {
     }
 });
 
-fileInput.addEventListener("input", function() {
-    audioPlayer.pause();
-    playlist.empty();
+fileInput.addEventListener("input", fileInputListener.bind(fileInput, true));
+addToPlaylistInput.addEventListener("input", fileInputListener.bind(addToPlaylistInput, false));
+
+// Handles adding tracks to the playlist and overriding the playlist
+function fileInputListener(overridePlaylist = false) {
+    if(overridePlaylist) {
+        audioPlayer.pause();
+        playlist.empty();
+    }
 
     playlist.add(Array.from(this.files).filter(file => file.type.startsWith("audio/")));
 
-    playTrack(playlist.next());
-});
-
-addToPlaylistInput.addEventListener("input", function() {
-    playlist.add(Array.from(this.files).filter(file => file.type.startsWith("audio/")));
-    if(nowPlaying === null)
+    if(overridePlaylist || nowPlaying === null)
         playTrack(playlist.next());
-});
+}
 
 // Plays the given track
 function playTrack(track) {
