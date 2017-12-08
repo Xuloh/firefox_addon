@@ -1,7 +1,9 @@
 var fileInput = document.getElementById("fileInput");
 var addToPlaylistInput = document.getElementById("addToPlaylistInput");
+var audioPlayer = document.getElementById("audioPlayer");
+audioPlayer.src = "";
 
-var playlist = new Playlist(document.getElementById("audioPlayer"));
+var playlist = new Playlist(audioPlayer);
 
 fileInput.addEventListener("input", fileInputListener.bind(fileInput, true));
 addToPlaylistInput.addEventListener("input", fileInputListener.bind(addToPlaylistInput, false));
