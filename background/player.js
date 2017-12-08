@@ -45,11 +45,10 @@ class Playlist extends EventEmitter {
     // Adds the given track to the playlist
     // If an array is given, adds all the tracks it contains
     add(track) {
-        if(Array.isArray(track))
-            this.playlist = this.playlist.concat(track);
-        else
-            this.playlist.push(track);
-        this.trigger("add", track);
+        if(!Array.isArray(track))
+            track = [track];
+        this.playlist = this.playlist.concat(track);
+        this.trigger("add", {"track": track});
     }
 
     // Returns true if a next track is available
