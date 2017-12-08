@@ -69,6 +69,11 @@ class Playlist extends EventEmitter {
         return this.playlist[index];
     }
 
+    // Returns the index of the current track
+    getCurrentTrack() {
+        return this.currentTrack;
+    }
+
     // Empties the playlist
     empty() {
         this.playlist = [];
