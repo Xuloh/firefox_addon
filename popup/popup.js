@@ -8,7 +8,8 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
 
     var guiUpdater = new GUIUpdater({
         "backgroundPage": backgroundPage,
-        "audioPlayer": audioPlayer
+        "audioPlayer": audioPlayer,
+        "playlist": playlist
     });
 
     guiUpdater.updateGUI();
@@ -32,7 +33,6 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
     });
 
     emptyButton.addEventListener("click", function() {
-        audioPlayer.currentTime = audioPlayer.duration;
         playlist.empty();
     });
 
@@ -201,9 +201,9 @@ function togglePlayPauseButton() {
 
 // Updates the now playing display
 function switchNowPlaying() {
-    if(this.context.backgroundPage.nowPlaying != null) {
-        nowPlaying.textContent = this.context.backgroundPage.nowPlaying;
-        nowPlaying.title = this.context.backgroundPage.nowPlaying;
+    if(this.context.playlist.nowPlaying() != null) {
+        nowPlaying.textContent = this.context.playlist.nowPlaying();
+        nowPlaying.title = this.context.playlist.nowPlaying();
     }
     else {
         nowPlaying.textContent = "Nothing playing";
@@ -234,7 +234,7 @@ function setVolumeInputValue() {
 
 // Sets the current time input max value and value and enables it
 function setCurrentTimeInput() {
-    if(this.context.backgroundPage.nowPlaying != null) {
+    if(this.context.playlist.nowPlaying() != null) {
         currentTimeInput.max = this.context.audioPlayer.duration;
         currentTimeInput.value = this.context.audioPlayer.currentTime;
         currentTimeInput.disabled = false;
@@ -252,7 +252,7 @@ function setCurrentTimeInput() {
 
 // Sets the duration durationLabel
 function setDurationLabel() {
-    if(this.context.backgroundPage.nowPlaying != null)
+    if(this.context.playlist.nowPlaying() != null)
         durationLabel.textContent = toTimeStr(this.context.audioPlayer.duration);
     else
         durationLabel.textContent = "0:00";

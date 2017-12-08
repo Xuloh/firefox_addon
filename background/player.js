@@ -31,12 +31,20 @@ class EventEmitter {
 // Class used to store and manipulate a playlist
 class Playlist extends EventEmitter {
 
+    // Takes the audio player that will be used by the playlist
     // If an array is given, the playlist is initialised with it
-    constructor(playlist = null) {
+    constructor(audioPlayer, playlist = null) {
         super(["add", "empty"]);
+
+        this.audioPlayer = audioPlayer;
+        this.audioPlayer.addEventListener("ended", function() {
+            this.playNext();
+        }.bind(this));
+
         this.playlist = [];
         if(playlist != null && Array.isArray(playlist))
             this.add(playlist);
+
         this.currentTrack = -1;
     }
 
@@ -84,17 +92,16 @@ class Playlist extends EventEmitter {
         return this.playlist[index];
     }
 
-    // Returns the index of the current track
-    getCurrentTrack() {
-        return this.currentTrack;
-    }
-
     // Empties the playlist
     empty() {
+        if(this.currentTrack > -1)
+            this.audioPlayer.currentTime = this.audioPlayer.duration;
+
         for(let i = 0; i < this.playlist.length; i++)
             URL.revokeObjectURL(this.playlist[i].url);
         this.currentTrack = -1;
         this.playlist = [];
+
         this.trigger("empty");
     }
 
@@ -102,44 +109,51 @@ class Playlist extends EventEmitter {
     length() {
         return this.playlist.length;
     }
+
+    playNext() {
+        if(this.hasNext()) {
+            var nextTrack = this.next();
+            this.audioPlayer.src = nextTrack.url;
+            this.audioPlayer.play();
+        }
+        else
+            this.audioPlayer.src = "";
+    }
+
+    playPrevious() {
+        if(this.hasPrevious()) {
+            var previousTrack = this.previous();
+            this.audioPlayer.src = previousTrack.url;
+            this.audioPlayer.play();
+        }
+        else
+            this.audioPlayer.src = "";
+    }
+
+    nowPlaying() {
+        // console.log("now playing method ;)");
+        if(this.currentTrack > -1)
+            return this.get(this.currentTrack).file.name;
+        else
+            return null;
+    }
 }
 
-var audioPlayer = document.getElementById("audioPlayer");
 var fileInput = document.getElementById("fileInput");
 var addToPlaylistInput = document.getElementById("addToPlaylistInput");
 
-var playlist = new Playlist();
-
-var nowPlaying = null;
-
-audioPlayer.addEventListener("ended", function() {
-    if(playlist.hasNext())
-        playTrack(playlist.next());
-    else {
-        this.src = "";
-        nowPlaying = null;
-    }
-});
+var playlist = new Playlist(document.getElementById("audioPlayer"));
 
 fileInput.addEventListener("input", fileInputListener.bind(fileInput, true));
 addToPlaylistInput.addEventListener("input", fileInputListener.bind(addToPlaylistInput, false));
 
 // Handles adding tracks to the playlist and overriding the playlist
 function fileInputListener(overridePlaylist = false) {
-    if(overridePlaylist) {
-        audioPlayer.pause();
+    if(overridePlaylist)
         playlist.empty();
-    }
 
     playlist.add(Array.from(this.files).filter(file => file.type.startsWith("audio/")));
 
-    if(overridePlaylist || nowPlaying === null)
-        playTrack(playlist.next());
-}
-
-// Plays the given track
-function playTrack(track) {
-    audioPlayer.src = track.url;
-    audioPlayer.play();
-    nowPlaying = track.file.name;
+    if(overridePlaylist || playlist.nowPlaying() === null)
+        playlist.playNext();
 }
