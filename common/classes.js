@@ -38,7 +38,12 @@ class Playlist extends EventEmitter {
 
         this.audioPlayer = audioPlayer;
         this.audioPlayer.addEventListener("ended", function() {
-            this.playNext();
+            if(this.hasNext())
+                this.playNext();
+            else {
+                this.audioPlayer.src = "";
+                this.currentTrack = -1;
+            }
         }.bind(this));
 
         this.playlist = [];
