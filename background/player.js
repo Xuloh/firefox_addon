@@ -53,9 +53,22 @@ class Playlist extends EventEmitter {
         this.trigger("add", {"track": track});
     }
 
+    // Returns true if a previous track is available
+    hasPrevious() {
+        return this.currentTrack > 0;
+    }
+
     // Returns true if a next track is available
     hasNext() {
         return this.currentTrack + 1 < this.playlist.length;
+    }
+
+    // Returns the previous track, or null if the start of the playlist was reached
+    previous() {
+        if(this.currentTrack > 0)
+            return this.playlist[--this.currentTrack];
+        else
+            return null;
     }
 
     // Returns the next track, or null if the end of the playlist was reached
