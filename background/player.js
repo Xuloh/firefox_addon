@@ -1,8 +1,39 @@
+// Class used to represent an object with a simple event mechanism
+class EventEmitter {
+    constructor(supportedEvents) {
+        this.supportedEvents = supportedEvents;
+        this.eventListeners = {};
+        for(let i = 0; i < this.supportedEvents.length; i++)
+            this.eventListeners[this.supportedEvents[i]] = []
+    }
+
+    on(event, eventListener) {
+        this.eventListeners[event].push(eventListener);
+    }
+
+    remove(event, eventListener) {
+        var listenerIndex = this.eventListeners[event].indexOf(eventListener);
+        if(listenerIndex > -1)
+            this.eventListeners[event].splice(listenerIndex, 1);
+    }
+
+    trigger(event, data = null) {
+        for(let i = 0; i < this.eventListeners[event].length; i++) {
+            let eventObject = {
+                "type": event,
+                "data": data
+            };
+            this.eventListeners[event][i](eventObject);
+        }
+    }
+}
+
 // Class used to store and manipulate a playlist
-class Playlist {
+class Playlist extends EventEmitter {
 
     // If an array is given, the playlist is initialised with it
     constructor(playlist = null) {
+        super(["add", "empty"]);
         if(playlist != null && Array.isArray(playlist))
             this.playlist = playlist;
         else
@@ -18,6 +49,7 @@ class Playlist {
             this.playlist = this.playlist.concat(track);
         else
             this.playlist.push(track);
+        this.trigger("add", track);
     }
 
     // Returns true if a next track is available
@@ -42,6 +74,7 @@ class Playlist {
     empty() {
         this.playlist = [];
         this.currentTrack = -1;
+        this.trigger("empty");
     }
 
     // Returns the number of tracks in the playlist
