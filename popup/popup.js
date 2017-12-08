@@ -86,7 +86,17 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
             audioPlayer.currentTime = currentTime + 10;
         else
             audioPlayer.currentTime = audioPlayer.duration;
-    })
+    });
+
+    previousButton.addEventListener("click", function() {
+        playlist.playPrevious();
+        guiUpdater.updateGUI(["nowPlaying", "currentTimeInput", "durationLabel"]);
+    });
+
+    nextButton.addEventListener("click", function() {
+        playlist.playNext();
+        guiUpdater.updateGUI(["nowPlaying", "currentTimeInput", "durationLabel"]);
+    });
 
     // *** Listeners *** //
 
