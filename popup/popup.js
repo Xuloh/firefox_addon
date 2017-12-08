@@ -221,8 +221,15 @@ function setCurrentTimeInput() {
 
 // Sets the duration durationLabel
 function setDurationLabel() {
-    if(this.context.playlist.nowPlaying() != null)
-        durationLabel.textContent = toTimeStr(this.context.audioPlayer.duration);
+    if(this.context.playlist.nowPlaying() != null) {
+        var duration = this.context.audioPlayer.duration;
+        if(isNaN(duration))
+            this.context.audioPlayer.addEventListener("loadedmetadata",  function() {
+                durationLabel.textContent = toTimeStr(this.duration, true);
+            }, {"once": true});
+        else
+            durationLabel.textContent = toTimeStr(this.context.audioPlayer.duration, true);
+    }
     else
         durationLabel.textContent = "0:00";
 }
