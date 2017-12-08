@@ -5,7 +5,7 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
     var fileInput = backgroundPage.fileInput;
     var addToPlaylistInput = backgroundPage.addToPlaylistInput;
     var playlist = backgroundPage.playlist;
-    
+
     var guiUpdater = new GUIUpdater({
         "backgroundPage": backgroundPage,
         "audioPlayer": audioPlayer
@@ -32,6 +32,7 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
     });
 
     emptyButton.addEventListener("click", function() {
+        audioPlayer.currentTime = audioPlayer.duration;
         playlist.empty();
     });
 
