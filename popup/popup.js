@@ -204,7 +204,14 @@ function setVolumeInputValue() {
 // Sets the current time input max value and value and enables it
 function setCurrentTimeInput() {
     if(this.context.playlist.nowPlaying() != null) {
-        currentTimeInput.max = this.context.audioPlayer.duration;
+        var duration = this.context.audioPlayer.duration;
+        if(isNaN(duration))
+            this.context.audioPlayer.addEventListener("loadedmetadata",  function() {
+                currentTimeInput.max = this.duration;
+            }, {"once": true});
+        else
+            currentTimeInput.max = this.context.audioPlayer.duration;
+            
         currentTimeInput.value = this.context.audioPlayer.currentTime;
         currentTimeInput.disabled = false;
 
