@@ -34,11 +34,9 @@ class Playlist extends EventEmitter {
     // If an array is given, the playlist is initialised with it
     constructor(playlist = null) {
         super(["add", "empty"]);
+        this.playlist = [];
         if(playlist != null && Array.isArray(playlist))
-            this.playlist = playlist;
-        else
-            this.playlist = [];
-
+            this.add(playlist);
         this.currentTrack = -1;
     }
 
@@ -47,7 +45,11 @@ class Playlist extends EventEmitter {
     add(track) {
         if(!Array.isArray(track))
             track = [track];
-        this.playlist = this.playlist.concat(track);
+        for(let i = 0; i < track.length; i++)
+            this.playlist.push({
+                "url": URL.createObjectURL(track[i]),
+                "file": track[i]
+            });
         this.trigger("add", {"track": track});
     }
 
@@ -76,8 +78,10 @@ class Playlist extends EventEmitter {
 
     // Empties the playlist
     empty() {
-        this.playlist = [];
+        for(let i = 0; i < this.playlist.length; i++)
+            URL.revokeObjectURL(this.playlist[i].url);
         this.currentTrack = -1;
+        this.playlist = [];
         this.trigger("empty");
     }
 
@@ -96,8 +100,6 @@ var playlist = new Playlist();
 var nowPlaying = null;
 
 audioPlayer.addEventListener("ended", function() {
-    URL.revokeObjectURL(this.src);
-
     if(playlist.hasNext())
         playTrack(playlist.next());
     else {
@@ -124,8 +126,7 @@ function fileInputListener(overridePlaylist = false) {
 
 // Plays the given track
 function playTrack(track) {
-    var url = URL.createObjectURL(track);
-    audioPlayer.src = url;
+    audioPlayer.src = track.url;
     audioPlayer.play();
-    nowPlaying = track.name;
+    nowPlaying = track.file.name;
 }
