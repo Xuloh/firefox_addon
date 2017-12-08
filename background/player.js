@@ -105,23 +105,13 @@ fileInput.addEventListener("input", function() {
     audioPlayer.pause();
     playlist.empty();
 
-    for(let i = 0; i < this.files.length; i++) {
-        var file = this.files[i];
-
-        if(file.type.startsWith("audio/"))
-            playlist.add(file);
-    }
+    playlist.add(Array.from(this.files).filter(file => file.type.startsWith("audio/")));
 
     playTrack(playlist.next());
 });
 
 addToPlaylistInput.addEventListener("input", function() {
-    for(let i = 0; i < this.files.length; i++) {
-        var file = this.files[i];
-
-        if(file.type.startsWith("audio/"))
-            playlist.add(file);
-    }
+    playlist.add(Array.from(this.files).filter(file => file.type.startsWith("audio/")));
     if(nowPlaying === null)
         playTrack(playlist.next());
 });
