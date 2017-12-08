@@ -116,8 +116,6 @@ class Playlist extends EventEmitter {
             this.audioPlayer.src = nextTrack.url;
             this.audioPlayer.play();
         }
-        else
-            this.audioPlayer.src = "";
     }
 
     playPrevious() {
@@ -126,8 +124,6 @@ class Playlist extends EventEmitter {
             this.audioPlayer.src = previousTrack.url;
             this.audioPlayer.play();
         }
-        else
-            this.audioPlayer.src = "";
     }
 
     nowPlaying() {
