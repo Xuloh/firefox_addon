@@ -144,47 +144,6 @@ function toTimeStr(seconds) {
 
 // *** GUI UPDATE STUFF *** //
 
-/*
- * Class that can associate a GUI element name to a function used to update this element
- * It creates its own collection of element name/update function using the current Document
- * It looks for HTML elements that have an id, gui-element and gui-update attribute
- * The gui-element tells it that this HTML element is in fact a gui-element
- * The id is used as the name of the element
- * the gui-update gives the name of the update function
- * (this functions needs to exist in the class' global scope)
- */
-class GUIUpdater {
-
-    // The context object is available in all the update functions and can contain anything
-    constructor(context) {
-        this.context = context;
-
-        this.guiUpdates = {};
-        var guiElements = document.querySelectorAll("*[id][gui-element][gui-update]");
-        for(let i = 0; i < guiElements.length; i++) {
-            var guiElement = guiElements[i];
-            this.guiUpdates[guiElement.id] = window[guiElement.getAttribute("gui-update")].bind(this);
-        }
-    }
-
-    // Calls the update function(s) of the specified GUI element(s)
-    // If "" is given, calls all the update functions
-    updateGUI(gui = "") {
-        if(gui === "")
-            for(var guiElement in this.guiUpdates)
-                this.guiUpdates[guiElement]();
-        else
-            if(typeof gui === "string" && gui in this.guiUpdates)
-                this.guiUpdates[gui]();
-            else
-                if(Array.isArray(gui))
-                    for(let i = 0; i < gui.length; i++)
-                        this.guiUpdates[gui[i]]();
-                else
-                    console.log("Unrecognized parameter " + gui + " in function guiUpdater.updateGUI");
-    }
-}
-
 // Toggles the play/pause button
 function togglePlayPauseButton() {
     if(this.context.audioPlayer.paused) {
