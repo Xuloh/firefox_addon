@@ -2,41 +2,39 @@ var playlistItemTemplateSource = document.getElementById("playlist-item-template
 var playlistItemTemplate = Handlebars.compile(playlistItemTemplateSource);
 
 var playlistEmptyMessage = document.getElementById("playlist-empty-message");
-var playlist = document.getElementById("playlist");
+var playlistContainer = document.getElementById("playlist");
 
 browser.runtime.getBackgroundPage().then(function(backgroundPage) {
     var fileInput = backgroundPage.fileInput;
     var addToPlaylistInput = backgroundPage.addToPlaylistInput;
-
-    var fileInputListener = inputListener.bind(fileInput, true);
-    var addToPlaylistInputListener = inputListener.bind(addToPlaylistInput, false);
+    var playlist = backgroundPage.playlist;
 
     window.addEventListener("unload", function() {
-        fileInput.removeEventListener("input", fileInputListener);
-        addToPlaylistInput.removeEventListener("input", addToPlaylistInputListener);
+        playlist.remove("add", playlistAddListener);
+        playlist.remove("empty", playlistEmptyListener);
     });
 
-    fileInput.addEventListener("input", fileInputListener);
-    addToPlaylistInput.addEventListener("input", addToPlaylistInputListener);
+    playlist.on("add", playlistAddListener);
+    playlist.on("empty", playlistEmptyListener);
 
-    function inputListener(emptyPlaylist = false) {
-        if(emptyPlaylist)
-            playlist.innerHTML = "";
-
-        if(playlist.innerHTML === "")
+    function playlistAddListener(event) {
+        if(playlistContainer.childElementCount === 0)
             playlistEmptyMessage.style.height = "0";
 
-        for(let i = 0; i < this.files.length; i++) {
-            var file = this.files[i];
+        for(let i = 0; i < event.data.track.length; i++) {
+            var file = event.data.track[i];
 
             if(file.type.startsWith("audio/")) {
                 var newPlaylistItem = playlistItemTemplate({
                     "name": file.name
                 });
-
-                console.log(newPlaylistItem);
-                playlist.innerHTML += newPlaylistItem;
+                playlistContainer.innerHTML += newPlaylistItem;
             }
         }
+    }
+
+    function playlistEmptyListener() {
+        playlistContainer.innerHTML = "";
+        playlistEmptyMessage.style.height = "100%";
     }
 });
