@@ -3,10 +3,9 @@ var playlistItemTemplate = Handlebars.compile(playlistItemTemplateSource);
 
 var playlistEmptyMessage = document.getElementById("playlist-empty-message");
 var playlistContainer = document.getElementById("playlist");
+var addToPlaylistButton = document.getElementById("add-to-playlist");
 
 browser.runtime.getBackgroundPage().then(function(backgroundPage) {
-    var fileInput = backgroundPage.fileInput;
-    var addToPlaylistInput = backgroundPage.addToPlaylistInput;
     var playlist = backgroundPage.playlist;
 
     window.addEventListener("unload", function() {
@@ -17,9 +16,15 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
     playlist.on("add", playlistAddListener);
     playlist.on("empty", playlistEmptyListener);
 
+    addToPlaylistButton.addEventListener("click", function() {
+        backgroundPage.addToPlaylistInput.click();
+    });
+    
     function playlistAddListener(event) {
-        if(playlistContainer.childElementCount === 0)
+        if(playlistContainer.childElementCount === 0) {
             playlistEmptyMessage.classList.add("hidden");
+            playlistContainer.classList.remove("hidden");
+        }
 
         for(let i = 0; i < event.data.track.length; i++) {
             var file = event.data.track[i];
@@ -35,6 +40,7 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
 
     function playlistEmptyListener() {
         playlistContainer.innerHTML = "";
+        playlistContainer.classList.add("hidden");
         playlistEmptyMessage.classList.remove("hidden");
     }
 });

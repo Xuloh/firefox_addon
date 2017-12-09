@@ -2,6 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8" />
+        <link type="text/css" rel="stylesheet" href="/lib/font-awesome-4.7.0/css/font-awesome.min.css" />
         <link type="text/css" rel="stylesheet" href="sidebar.css" />
     </head>
 
@@ -10,8 +11,10 @@
             Nothing is playing right now :'(
         </div>
 
-        <div id="playlist">
+        <div id="playlist" class="hidden"></div>
 
+        <div id="add-to-playlist">
+            <i class="fa fa-plus"></i> &nbsp; <span>Add a track to the playlist</span>
         </div>
 
         <script id="playlist-item-template" type="text/x-handlebars-template">
