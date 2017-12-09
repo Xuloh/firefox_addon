@@ -19,7 +19,7 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
 
     function playlistAddListener(event) {
         if(playlistContainer.childElementCount === 0)
-            playlistEmptyMessage.style.height = "0";
+            playlistEmptyMessage.classList.add("hidden");
 
         for(let i = 0; i < event.data.track.length; i++) {
             var file = event.data.track[i];
@@ -35,6 +35,6 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
 
     function playlistEmptyListener() {
         playlistContainer.innerHTML = "";
-        playlistEmptyMessage.style.height = "100%";
+        playlistEmptyMessage.classList.remove("hidden");
     }
 });

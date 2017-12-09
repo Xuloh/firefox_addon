@@ -1,5 +1,7 @@
 body {
     height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 .playlist-item {
@@ -9,12 +11,15 @@ body {
 }
 
 #playlist-empty-message {
-    height: 100%;
-    width: 100%;
+    flex-grow: 1;
 
-    align-items: center;
     display: flex;
+    align-items: center;
     justify-content: center;
 
     overflow: hidden;
+}
+
+.hidden {
+    display: none !important;
 }
