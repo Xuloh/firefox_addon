@@ -1,4 +1,4 @@
-initVarsById();
+initElementsById();
 
 browser.runtime.getBackgroundPage().then(function(backgroundPage) {
     var audioPlayer = backgroundPage.audioPlayer;
@@ -14,16 +14,17 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
 
     guiUpdater.updateGUI();
 
+    // *** REGISTER EVENT LISTENERS *** //
+
+    var playPauseListener = guiUpdater.updateGUI.bind(guiUpdater, "playPauseButton");
+
+    // Remove listeners attached to objects in the background page when the popup in unloaded
     window.addEventListener("unload", function() {
         audioPlayer.removeEventListener("ended", playerEndedListener);
         audioPlayer.removeEventListener("timeupdate", playerTimeUpdateListener);
         audioPlayer.removeEventListener("play", playPauseListener);
         audioPlayer.removeEventListener("pause", playPauseListener);
     });
-
-    // *** Register controls event listeners *** //
-
-    var playPauseListener = guiUpdater.updateGUI.bind(guiUpdater, "playPauseButton");
 
     audioPlayer.addEventListener("ended", playerEndedListener);
     audioPlayer.addEventListener("timeupdate", playerTimeUpdateListener);
@@ -104,7 +105,7 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
         guiUpdater.updateGUI(["nowPlaying", "currentTimeInput", "durationLabel"]);
     });
 
-    // *** Listeners *** //
+    // *** LISTENERS *** //
 
     // Called when the audio file has finished playing
     function playerEndedListener() {
@@ -129,8 +130,8 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
 
 // *** MISC FUNCTIONS *** //
 
-// Adds a variable for each DOM element with an id
-function initVarsById() {
+// Adds a variable for each gui-element with an id in the document
+function initElementsById() {
     var guiElements = document.querySelectorAll("*[id][gui-element]");
     for(let i = 0; i < guiElements.length; i++) {
         var guiElement = guiElements[i].id;
