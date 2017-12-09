@@ -19,7 +19,36 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
     addToPlaylistButton.addEventListener("click", function() {
         backgroundPage.addToPlaylistInput.click();
     });
-    
+
+    // *** DRAG N DROP EVENT HANDLERS *** //
+
+    addToPlaylistButton.addEventListener("drop", function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        this.classList.remove("dragover");
+        backgroundPage.fileInputListener.bind(event.dataTransfer, false)();
+    });
+
+    addToPlaylistButton.addEventListener("dragover", function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+    });
+
+    addToPlaylistButton.addEventListener("dragenter", function(event) {
+        this.classList.add("dragover");
+        event.preventDefault();
+        event.stopPropagation();
+    });
+
+    addToPlaylistButton.addEventListener("dragleave", function(event) {
+        console.log("dragleave");
+        this.classList.remove("dragover");
+        event.preventDefault();
+        event.stopPropagation();
+    });
+
+    // *** LISTENERS *** //
+
     function playlistAddListener(event) {
         if(playlistContainer.childElementCount === 0) {
             playlistEmptyMessage.classList.add("hidden");
