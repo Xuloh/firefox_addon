@@ -21,6 +21,10 @@ input[type="range"]:hover::-moz-range-thumb {
     background-color: #CCC;
 }
 
+input[type="range"]:hover {
+    cursor: pointer;
+}
+
 #volumeInput {
     width: 60px;
 }
@@ -41,6 +45,7 @@ input[type="range"]:hover::-moz-range-thumb {
 
 .button:hover {
     background-color: rgba(204, 204, 204, 0.3);
+    cursor: pointer;
 }
 
 .button:active, .button.toggled {
