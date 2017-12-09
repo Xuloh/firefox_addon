@@ -30,9 +30,10 @@ body {
     align-items: center;
     justify-content: center;
 
+    border: 3px dashed #CCC;
     font-size: 1.1em;
     margin: 5px;
-    border: 3px dashed #CCC;
+    padding: 5px;
 }
 
 #add-to-playlist:hover, #add-to-playlist.dragover {
