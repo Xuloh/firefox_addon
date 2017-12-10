@@ -4,13 +4,55 @@ body {
 
 #playlist {
     height: 100%;
-    overflow: auto;
+    overflow-y: auto;
+    margin-top: 5px;
 }
 
 .playlist-item {
+    display: flex;
+
     border: solid 1px #CCC;
+    border-radius: 4px;
     margin: 0 5px 5px;
+    overflow: hidden;
+}
+
+.playlist-item .index {
+    border-right: solid 1px #CCC;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    padding: 4px;
+
+}
+
+.playlist-item .info {
+    display: flex;
+    flex-direction: column;
+    max-width: 90%;
     padding: 5px;
+}
+
+.playlist-item .title, .playlist-item .artist, .playlist-item .filename {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.playlist .title {
+    /* Currently unused */
+}
+
+.playlist-item .by {
+    /* Currently unused */
+}
+
+.playlist-item .artist {
+    /* Currently unused */
+}
+
+.playlist-item .filename {
+    /* Currently unused */
 }
 
 #playlist-empty-message {

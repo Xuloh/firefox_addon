@@ -56,13 +56,24 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
         }
 
         for(let i = 0; i < event.data.track.length; i++) {
-            var file = event.data.track[i];
+            let file = event.data.track[i];
 
             if(file.type.startsWith("audio/")) {
-                var newPlaylistItem = playlistItemTemplate({
-                    "name": file.name
+                let fileInfo = {
+                    "index": i + 1,
+                    "filename": file.name
+                };
+
+                jsmediatags.read(file, {
+                    onSuccess: function(tag) {
+                        fileInfo["artist"] = tag.tags.artist;
+                        fileInfo["title"] = tag.tags.title;
+                        playlistContainer.innerHTML += playlistItemTemplate(fileInfo);
+                    },
+                    onError: function(error) {
+                        console.log(error);
+                    }
                 });
-                playlistContainer.innerHTML += newPlaylistItem;
             }
         }
     }
