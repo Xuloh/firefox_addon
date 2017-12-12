@@ -86,7 +86,7 @@ class Playlist extends EventEmitter {
                         track.metadata.title = tag.tags.title;
                     })
                     .catch(error => console.log(error))
-                    .then(() => {
+                    .finally(() => {
                         this.playlist.push(track);
                         this.trigger("add", {"track": track});
                     })
