@@ -23,7 +23,7 @@ class EventEmitter {
                 "type": event,
                 "data": data
             };
-            this.eventListeners[event][i](eventObject);
+            setTimeout(() => this.eventListeners[event][i](eventObject), 0);
         }
     }
 }
