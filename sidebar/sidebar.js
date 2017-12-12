@@ -57,8 +57,7 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
             playlistContainer.classList.remove("hidden");
         }
 
-        for(let i = 0; i < event.data.track.length; i++)
-            addToView(event.data.track[i], playlistContainer.childElementCount + i + 1);
+        addToView(event.data.track);
     }
 
     function playlistEmptyListener() {
@@ -73,25 +72,11 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
             playlistContainer.classList.remove("hidden");
 
             for(let i = 0; i < playlist.length(); i++)
-                addToView(playlist.get(i).file, i + 1);
+                addToView(playlist.get(i));
         }
     }
 });
 
-function addToView(file, index) {
-    let fileInfo = {
-        "index": index,
-        "filename": file.name
-    };
-
-    jsmediatags.read(file, {
-        onSuccess: function(tag) {
-            fileInfo["artist"] = tag.tags.artist;
-            fileInfo["title"] = tag.tags.title;
-            playlistContainer.innerHTML += playlistItemTemplate(fileInfo);
-        },
-        onError: function(error) {
-            console.log(error);
-        }
-    });
+function addToView(track) {
+    playlistContainer.innerHTML += playlistItemTemplate(track.metadata);
 }

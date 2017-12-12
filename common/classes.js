@@ -1,3 +1,13 @@
+// Promise wrapper of the jsmediatags.read method
+var readFileMetadata = function(file) {
+    return new Promise((resolve, reject) => {
+        jsmediatags.read(file, {
+            onSuccess: tag => resolve(tag),
+            onError: error => reject(error)
+        })
+    });
+}
+
 // Class used to represent an object with a simple event mechanism
 class EventEmitter {
     constructor(supportedEvents) {
@@ -55,15 +65,34 @@ class Playlist extends EventEmitter {
 
     // Adds the given track to the playlist
     // If an array is given, adds all the tracks it contains
-    add(track) {
-        if(!Array.isArray(track))
-            track = [track];
-        for(let i = 0; i < track.length; i++)
-            this.playlist.push({
-                "url": URL.createObjectURL(track[i]),
-                "file": track[i]
-            });
-        this.trigger("add", {"track": track});
+    add(file) {
+        if(!Array.isArray(file))
+            file = [file];
+
+        let promises = [];
+        for(let i = 0; i < file.length; i++) {
+            let track = {
+                "url": URL.createObjectURL(file[i]),
+                "file": file[i],
+                "metadata" : {
+                    "filename": file[i].name,
+                    "index": this.length() + i + 1
+                }
+            };
+            promises.push(
+                readFileMetadata(track.file)
+                    .then(tag => {
+                        track.metadata.artist = tag.tags.artist;
+                        track.metadata.title = tag.tags.title;
+                    })
+                    .catch(error => console.log(error))
+                    .then(() => {
+                        this.playlist.push(track);
+                        this.trigger("add", {"track": track});
+                    })
+            );
+        }
+        return Promise.all(promises);
     }
 
     // Returns true if a previous track is available
