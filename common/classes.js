@@ -160,6 +160,15 @@ class Playlist extends EventEmitter {
         }
     }
 
+    play(index) {
+        if(index >= 0 && index < this.length()) {
+            var track = this.get(index);
+            this.audioPlayer.src = track.url;
+            this.audioPlayer.play();
+            this.trigger("play", {"index": index});
+        }
+    }
+
     nowPlaying() {
         // console.log("now playing method ;)");
         if(this.currentTrack > -1)
