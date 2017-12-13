@@ -13,7 +13,7 @@ function fileInputListener(overridePlaylist = false) {
     if(overridePlaylist)
         playlist.empty();
 
-    playlist.add(Array.from(this.files).filter(file => file.type.startsWith("audio/"))).then(() => {
+    playlist.add(Array.from(this.files).filter(file => file.type.startsWith("audio/"))).finally(() => {
         if(overridePlaylist || playlist.nowPlaying() === null)
             playlist.playNext();
     });
