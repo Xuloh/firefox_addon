@@ -1,5 +1,6 @@
 body {
     height: 100vh;
+    width: 100vw;
 }
 
 #playlist {
@@ -10,6 +11,8 @@ body {
 
 .playlist-item {
     display: flex;
+
+    height: 5em;
 
     border: solid 1px #CCC;
     border-radius: 4px;
@@ -33,7 +36,11 @@ body {
     padding: 5px;
 }
 
-.playlist-item .title, .playlist-item .artist, .playlist-item .filename {
+.playlist-item .filename {
+    overflow: hidden;
+}
+
+.playlist-item .title, .playlist-item .artist {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
