@@ -13,10 +13,12 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
     window.addEventListener("unload", function() {
         playlist.remove("add", playlistAddListener);
         playlist.remove("empty", playlistEmptyListener);
+        playlist.remove("play", playlistPlayListener);
     });
 
     playlist.on("add", playlistAddListener);
     playlist.on("empty", playlistEmptyListener);
+    playlist.on("play", playlistPlayListener);
 
     addToPlaylistButton.addEventListener("click", function() {
         backgroundPage.addToPlaylistInput.click();
@@ -64,6 +66,13 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
         playlistContainer.innerHTML = "";
         playlistContainer.classList.add("hidden");
         playlistEmptyMessage.classList.remove("hidden");
+    }
+
+    function playlistPlayListener(event) {
+        var oldPlaying = document.querySelector(".playlist-item.playing");
+        if(oldPlaying !== null)
+            oldPlaying.classList.remove("playing");
+        playlistContainer.children[event.data.index].classList.add("playing");
     }
 
     function updateSidebar() {

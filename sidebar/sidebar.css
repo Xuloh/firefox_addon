@@ -55,6 +55,10 @@ body {
     /* Currently unused */
 }
 
+.playlist-item.playing {
+    border: solid 1px #000;
+}
+
 #playlist-empty-message {
     height: 100%;
 
