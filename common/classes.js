@@ -44,7 +44,7 @@ class Playlist extends EventEmitter {
     // Takes the audio player that will be used by the playlist
     // If an array is given, the playlist is initialised with it
     constructor(audioPlayer, playlist = null) {
-        super(["add", "empty"]);
+        super(["add", "empty", "play"]);
 
         this.audioPlayer = audioPlayer;
         this.audioPlayer.addEventListener("ended", function() {
@@ -149,6 +149,7 @@ class Playlist extends EventEmitter {
             var nextTrack = this.next();
             this.audioPlayer.src = nextTrack.url;
             this.audioPlayer.play();
+            this.trigger("play", {"index": this.currentTrack});
         }
     }
 
@@ -157,6 +158,7 @@ class Playlist extends EventEmitter {
             var previousTrack = this.previous();
             this.audioPlayer.src = previousTrack.url;
             this.audioPlayer.play();
+            this.trigger("play", {"index": this.currentTrack});
         }
     }
 
