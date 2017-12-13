@@ -22,6 +22,11 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
     playlist.on("play", playlistPlayListener);
     playlist.on("stop", playlistStopListener);
 
+    playlistContainer.addEventListener("click", function(event) {
+        var index = parseInt(event.target.querySelector(".index").textContent) - 1;
+        playlist.play(index);
+    });
+
     addToPlaylistButton.addEventListener("click", function() {
         backgroundPage.addToPlaylistInput.click();
     });

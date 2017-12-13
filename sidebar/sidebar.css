@@ -16,8 +16,13 @@ body {
 
     border: solid 1px #CCC;
     border-radius: 4px;
+    cursor: pointer;
     margin: 0 5px 5px;
     overflow: hidden;
+}
+
+.playlist-item * {
+    pointer-events: none;
 }
 
 .playlist-item .index {
