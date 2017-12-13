@@ -14,11 +14,13 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
         playlist.remove("add", playlistAddListener);
         playlist.remove("empty", playlistEmptyListener);
         playlist.remove("play", playlistPlayListener);
+        playlist.remove("stop", playlistStopListener);
     });
 
     playlist.on("add", playlistAddListener);
     playlist.on("empty", playlistEmptyListener);
     playlist.on("play", playlistPlayListener);
+    playlist.on("stop", playlistStopListener);
 
     addToPlaylistButton.addEventListener("click", function() {
         backgroundPage.addToPlaylistInput.click();
@@ -73,6 +75,10 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
         if(oldPlaying !== null)
             oldPlaying.classList.remove("playing");
         playlistContainer.children[event.data.index].classList.add("playing");
+    }
+
+    function playlistStopListener() {
+        document.querySelector(".playlist-item.playing").classList.remove("playing");
     }
 
     function updateSidebar() {
