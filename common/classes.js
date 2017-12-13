@@ -163,7 +163,7 @@ class Playlist extends EventEmitter {
     nowPlaying() {
         // console.log("now playing method ;)");
         if(this.currentTrack > -1)
-            return this.get(this.currentTrack).file.name;
+            return this.get(this.currentTrack);
         else
             return null;
     }

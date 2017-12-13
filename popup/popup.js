@@ -177,8 +177,8 @@ function togglePlayPauseButton() {
 // Updates the now playing display
 function switchNowPlaying() {
     if(this.context.playlist.nowPlaying() != null) {
-        nowPlaying.textContent = this.context.playlist.nowPlaying();
-        nowPlaying.title = this.context.playlist.nowPlaying();
+        nowPlaying.textContent = this.context.playlist.nowPlaying().file.name;
+        nowPlaying.title = this.context.playlist.nowPlaying().file.name;
     }
     else {
         nowPlaying.textContent = "Nothing playing";
