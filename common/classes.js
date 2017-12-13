@@ -105,23 +105,20 @@ class Playlist extends EventEmitter {
 
     // Returns the previous track, or null if the start of the playlist was reached
     previous() {
-        if(this.currentTrack > 0)
-            return this.playlist[--this.currentTrack];
-        else
-            return null;
+        return this.get(--this.currentTrack);
     }
 
     // Returns the next track, or null if the end of the playlist was reached
     next() {
-        if(this.currentTrack < this.playlist.length)
-            return this.playlist[++this.currentTrack];
-        else
-            return null;
+        return this.get(++this.currentTrack);
     }
 
     // Returns the track at the given index
     get(index) {
-        return this.playlist[index];
+        if(index >= 0 && index < this.length())
+            return this.playlist[index];
+        else
+            return null;
     }
 
     // Empties the playlist
