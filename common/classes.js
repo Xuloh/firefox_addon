@@ -163,6 +163,7 @@ class Playlist extends EventEmitter {
     play(index) {
         if(index >= 0 && index < this.length()) {
             var track = this.get(index);
+            this.currentTrack = index;
             this.audioPlayer.src = track.url;
             this.audioPlayer.play();
             this.trigger("play", {"index": index});
