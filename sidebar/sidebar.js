@@ -82,6 +82,8 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
 
             for(let i = 0; i < playlist.length(); i++)
                 addToView(playlist.get(i));
+
+            playlistContainer.children[playlist.currentTrack].classList.add("playing");
         }
     }
 });
