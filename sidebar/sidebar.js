@@ -90,6 +90,7 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
         if(playlist.length() > 0) {
             playlistEmptyMessage.classList.add("hidden");
             playlistContainer.classList.remove("hidden");
+            playlistContainer.innerHTML = "";
 
             for(let i = 0; i < playlist.length(); i++)
                 addToView(playlist.get(i));
