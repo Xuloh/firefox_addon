@@ -1,23 +1,21 @@
 body {
     height: 100vh;
-    width: 100vw;
 }
 
 #playlist {
     height: 100%;
     overflow-y: auto;
-    margin-top: 5px;
+    margin-top: 4px;
+    padding: 0 4px;
 }
 
 .playlist-item {
-    display: flex;
-
-    height: 5em;
-
     border: solid 1px #CCC;
     border-radius: 4px;
     cursor: pointer;
-    margin: 0 5px 5px;
+    display: flex;
+    height: 5em;
+    margin: 0 4px 4px;
     overflow: hidden;
 }
 
@@ -26,8 +24,8 @@ body {
 }
 
 .playlist-item .index {
-    border-right: solid 1px #CCC;
     align-items: center;
+    border-right: solid 1px #CCC;
     display: flex;
     justify-content: center;
     padding: 4px;
@@ -37,12 +35,9 @@ body {
 .playlist-item .info {
     display: flex;
     flex-direction: column;
-    max-width: 90%;
-    padding: 5px;
-}
-
-.playlist-item .filename {
-    overflow: hidden;
+    flex-grow: 1;
+    min-width: 0;
+    padding: 4px;
 }
 
 .playlist-item .title, .playlist-item .artist {

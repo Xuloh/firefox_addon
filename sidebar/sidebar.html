@@ -24,13 +24,13 @@
                 </div>
                 <div class="info">
                     {{#if title}}
-                        <span class="title" title="{{ title }}">{{ title }}</span>
+                        <div class="title" title="{{ title }}">{{ title }}</div>
                         {{#if artist}}
-                            <span class="by">by</span>
-                            <span class="artist" title="{{ artist }}">{{ artist }}</span>
+                            <div class="by">by</div>
+                            <div class="artist" title="{{ artist }}">{{ artist }}</div>
                         {{/if}}
                     {{else}}
-                        <span class="filename" title="{{ filename }}">{{ filename }}</span>
+                        <div class="filename" title="{{ filename }}">{{ filename }}</div>
                     {{/if}}
                 </div>
             </div>
