@@ -44,7 +44,7 @@ class Playlist extends EventEmitter {
     // Takes the audio player that will be used by the playlist
     // If an array is given, the playlist is initialised with it
     constructor(audioPlayer, playlist = null) {
-        super(["add", "empty", "play", "stop"]);
+        super(["add", "empty", "play", "stop", "switch"]);
 
         this.audioPlayer = audioPlayer;
         this.audioPlayer.addEventListener("ended", () => {
@@ -179,6 +179,38 @@ class Playlist extends EventEmitter {
         this.audioPlayer.src = "";
         this.currentTrack = -1;
         this.trigger("stop");
+    }
+
+    moveUp(index) {
+        if(index > 0)
+            this.switchTracks(index, index - 1);
+    }
+
+    moveDown(index) {
+        if(index < this.length() - 1)
+            this.switchTracks(index, index + 1);
+    }
+
+    switchTracks(index1, index2) {
+        if(index1 >= 0 && index1 < this.length() && index2 >= 0 && index2 < this.length()) {
+
+            // Switch the tracks
+            var track = this.playlist[index1];
+            this.playlist[index1] = this.playlist[index2];
+            this.playlist[index2] = track;
+
+            // Update track indices
+            this.playlist[index1].metadata.index = index1 + 1;
+            this.playlist[index2].metadata.index = index2 + 1;
+
+            // Update current track (if necessary)
+            if(this.currentTrack === index1)
+                this.currentTrack = index2;
+            else if(this.currentTrack === index2)
+                this.currentTrack = index1;
+
+            this.trigger("switch", {"index1": index1, "index2": index2});
+        }
     }
 }
 
