@@ -15,12 +15,14 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
         playlist.remove("empty", playlistEmptyListener);
         playlist.remove("play", playlistPlayListener);
         playlist.remove("stop", playlistStopListener);
+        playlist.remove("switch", playlistSwitchListener);
     });
 
     playlist.on("add", playlistAddListener);
     playlist.on("empty", playlistEmptyListener);
     playlist.on("play", playlistPlayListener);
     playlist.on("stop", playlistStopListener);
+    playlist.on("switch", playlistSwitchListener);
 
     playlistContainer.addEventListener("click", function(event) {
         var index = parseInt(event.target.querySelector(".index").textContent) - 1;
@@ -84,6 +86,27 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
 
     function playlistStopListener() {
         document.querySelector(".playlist-item.playing").classList.remove("playing");
+    }
+
+    function playlistSwitchListener(event) {
+        var index1 = event.data.index1;
+        var index2 = event.data.index2;
+
+        var track = document.createElement("div");
+
+        // Update the first track
+        track.innerHTML = playlistItemTemplate(playlist.get(index1).metadata);
+        track.innerHTML = track.children[0].innerHTML;
+        playlistContainer.children[index1].innerHTML = track.innerHTML;
+
+        // Update the second track
+        track.innerHTML = playlistItemTemplate(playlist.get(index2).metadata);
+        track.innerHTML = track.children[0].innerHTML;
+        playlistContainer.children[index2].innerHTML = track.innerHTML;
+
+        // Update the playing track
+        document.querySelector(".playlist-item.playing").classList.remove("playing");
+        playlistContainer.children[playlist.currentTrack].classList.add("playing");
     }
 
     function updateSidebar() {
