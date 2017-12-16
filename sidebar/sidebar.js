@@ -25,8 +25,10 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
     playlist.on("switch", playlistSwitchListener);
 
     playlistContainer.addEventListener("click", function(event) {
-        var index = parseInt(event.target.querySelector(".index").textContent) - 1;
-        playlist.play(index);
+        if(event.target.classList.contains("playlist-item")) {
+            var index = parseInt(event.target.querySelector(".index").textContent) - 1;
+            playlist.play(index);
+        }
     });
 
     addToPlaylistButton.addEventListener("click", function() {
