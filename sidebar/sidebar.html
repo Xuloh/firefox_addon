@@ -19,19 +19,29 @@
         </div>
 
         <script id="playlist-item-template" type="text/x-handlebars-template">
-            <div class="playlist-item">
+            {{#if title}}
+                {{#if artist}}
+                    <div class="playlist-item" title="{{ title }}
+by
+{{ artist }}">
+                {{else}}
+                    <div class="playlist-item" title="{{ title }}">
+                {{/if}}
+            {{else}}
+                <div class="playlist-item" title="{{ filename }}">
+            {{/if}}
                 <div class="index">
                     {{ index }}
                 </div>
                 <div class="info">
                     {{#if title}}
-                        <div class="title" title="{{ title }}">{{ title }}</div>
+                        <div class="title">{{ title }}</div>
                         {{#if artist}}
                             <div class="by">by</div>
-                            <div class="artist" title="{{ artist }}">{{ artist }}</div>
+                            <div class="artist">{{ artist }}</div>
                         {{/if}}
                     {{else}}
-                        <div class="filename" title="{{ filename }}">{{ filename }}</div>
+                        <div class="filename">{{ filename }}</div>
                     {{/if}}
                 </div>
                 <div class="controls">
