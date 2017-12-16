@@ -45,6 +45,11 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
 
     playPauseButton.addEventListener("click", playPause);
 
+    stopButton.addEventListener("click", function() {
+        playlist.stop();
+        guiUpdater.updateGUI();
+    });
+
     volumeDownButton.addEventListener("click", function() {
         if(audioPlayer.volume - 0.1 >= 0.0)
             audioPlayer.volume -= 0.1;
