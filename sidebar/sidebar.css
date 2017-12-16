@@ -36,11 +36,12 @@ body {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
+    justify-content: center;
     min-width: 0;
     padding: 4px;
 }
 
-.playlist-item .title, .playlist-item .artist {
+.playlist-item .title, .playlist-item .artist, .playlist-item .filename {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
