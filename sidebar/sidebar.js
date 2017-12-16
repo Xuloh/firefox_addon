@@ -26,7 +26,7 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
 
     playlistContainer.addEventListener("click", function(event) {
         if(event.target.classList.contains("playlist-item")) {
-            var index = parseInt(event.target.querySelector(".index").textContent) - 1;
+            let index = parseInt(event.target.querySelector(".index").textContent) - 1;
             playlist.play(index);
         }
     });

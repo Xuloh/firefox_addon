@@ -12,6 +12,11 @@
     width: 27px;
 }
 
+.button.smaller {
+    font-size: 14px;
+    width: 21px;
+}
+
 .button:hover {
     background-color: rgba(204, 204, 204, 0.3);
     cursor: pointer;

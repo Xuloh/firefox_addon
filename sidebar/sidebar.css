@@ -14,7 +14,6 @@ body {
     border-radius: 4px;
     cursor: pointer;
     display: flex;
-    height: 5em;
     margin: 0 4px 4px;
     overflow: hidden;
 }
@@ -29,7 +28,19 @@ body {
     display: flex;
     justify-content: center;
     padding: 4px;
+}
 
+.playlist-item .controls {
+    align-items: center;
+    border-left: solid 1px #CCC;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    pointer-events: auto;
+}
+
+.playlist-item .controls * {
+    pointer-events: auto;
 }
 
 .playlist-item .info {

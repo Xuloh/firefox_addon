@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8" />
         <link type="text/css" rel="stylesheet" href="/lib/font-awesome-4.7.0/css/font-awesome.min.css" />
+        <link type="text/css" rel="stylesheet" href="/common/common.css" />
         <link type="text/css" rel="stylesheet" href="sidebar.css" />
     </head>
 
@@ -32,6 +33,11 @@
                     {{else}}
                         <div class="filename" title="{{ filename }}">{{ filename }}</div>
                     {{/if}}
+                </div>
+                <div class="controls">
+                    <i class="fa fa-angle-up button smaller" control="move-up {{index - 1}}"></i>
+                    <i class="fa fa-trash-o button smaller" control="delete {{index - 1}}"></i>
+                    <i class="fa fa-angle-down button smaller" control="move-down {{index - 1}}"></i>
                 </div>
             </div>
         </script>
