@@ -43,11 +43,18 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
         playlist.empty();
     });
 
-    playPauseButton.addEventListener("click", playPause);
+    playPauseButton.addEventListener("click", function() {
+        var update = false;
+        if(playlist.nowPlaying() === null)
+            update = true;
+        playlist.playPause();
+        if(update)
+            guiUpdater.updateGUI(["nowPlaying", "currentTimeInput", "durationLabel"]);
+    });
 
     stopButton.addEventListener("click", function() {
         playlist.stop();
-        guiUpdater.updateGUI();
+        guiUpdater.updateGUI(["playPauseButton", "nowPlaying", "currentTimeInput", "durationLabel"]);
     });
 
     volumeDownButton.addEventListener("click", function() {
@@ -129,15 +136,6 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
         currentTimeLabel.textContent = toTimeStr(audioPlayer.currentTime);
         currentTimeInput.value = audioPlayer.currentTime;
     }
-
-    // Plays/pauses the audio file
-    function playPause() {
-        if(audioPlayer.paused)
-            audioPlayer.play();
-        else
-            audioPlayer.pause();
-    }
-
 });
 
 // *** MISC FUNCTIONS *** //
