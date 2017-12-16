@@ -1,3 +1,5 @@
+"use strict";
+
 var playlistItemTemplateSource = document.getElementById("playlist-item-template").innerHTML;
 var playlistItemTemplate = Handlebars.compile(playlistItemTemplateSource);
 

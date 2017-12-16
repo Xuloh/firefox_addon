@@ -1,3 +1,5 @@
+"use strict";
+
 // Promise wrapper of the jsmediatags.read method
 var readFileMetadata = function(file) {
     return new Promise((resolve, reject) => {

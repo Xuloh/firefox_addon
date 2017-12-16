@@ -1,3 +1,5 @@
+"use strict";
+
 var fileInput = document.getElementById("fileInput");
 var addToPlaylistInput = document.getElementById("addToPlaylistInput");
 var audioPlayer = document.getElementById("audioPlayer");

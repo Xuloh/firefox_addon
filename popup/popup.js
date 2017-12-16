@@ -1,3 +1,5 @@
+"use strict";
+
 initElementsById();
 
 browser.runtime.getBackgroundPage().then(function(backgroundPage) {
