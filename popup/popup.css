@@ -1,6 +1,17 @@
 body {
     background-color: #fff;
-    width: 271px;
+    display: flex;
+    flex-direction: row;
+    width: 300px;
+}
+
+#player-controls {
+    flex-direction: column;
+}
+
+#track-controls {
+    flex-grow: 1;
+    min-width: 0;
 }
 
 #nowPlaying {
@@ -26,5 +37,5 @@ input[type="range"]:hover {
 }
 
 #volumeInput {
-    width: 60px;
+    width: 90px;
 }
