@@ -62,8 +62,8 @@ body {
     /* Currently unused */
 }
 
-.playlist-item.playing {
-    border: solid 1px #000;
+.playlist-item.playing, .playlist-item.playing * {
+    border-color: #000;
 }
 
 #playlist-empty-message {
