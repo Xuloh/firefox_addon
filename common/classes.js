@@ -59,6 +59,7 @@ class Playlist extends EventEmitter {
             this.add(playlist);
 
         this.currentTrack = -1;
+        this.loop = false;
     }
 
     // Adds the given track to the playlist
@@ -95,22 +96,27 @@ class Playlist extends EventEmitter {
 
     // Returns true if a previous track is available
     hasPrevious() {
-        return this.currentTrack > 0;
+        return this.loop || this.currentTrack > 0;
     }
 
     // Returns true if a next track is available
     hasNext() {
-        return this.currentTrack + 1 < this.playlist.length;
+        return this.loop || this.currentTrack + 1 < this.playlist.length;
     }
 
     // Returns the previous track, or null if the start of the playlist was reached
     previous() {
-        return this.get(--this.currentTrack);
+        if(this.currentTrack === 0)
+            this.currentTrack = this.length() - 1;
+        else
+            this.currentTrack--;
+        return this.get(this.currentTrack);
     }
 
     // Returns the next track, or null if the end of the playlist was reached
     next() {
-        return this.get(++this.currentTrack);
+        this.currentTrack = (this.currentTrack + 1) % this.length();
+        return this.get(this.currentTrack);
     }
 
     // Returns the track at the given index
