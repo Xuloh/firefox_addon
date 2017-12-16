@@ -222,9 +222,11 @@ class Playlist extends EventEmitter {
             for(let i = index; i < this.length(); i++)
                 this.playlist[i].metadata.index = this.playlist[i].metadata.index - 1;
 
-            if(index >= this.length())
+            // if removed the last track and the last track was playing then stop
+            if(index >= this.length() && this.currentTrack === index)
                 this.stop();
-            else
+            // if removed the playing track then play the next
+            else if(this.currentTrack === index)
                 this.play(index);
 
             this.trigger("remove", {"index": index});
