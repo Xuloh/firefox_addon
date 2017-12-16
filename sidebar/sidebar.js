@@ -8,6 +8,12 @@ var addToPlaylistButton = document.getElementById("add-to-playlist");
 browser.runtime.getBackgroundPage().then(function(backgroundPage) {
     var playlist = backgroundPage.playlist;
 
+    var playlistControls = {
+        "move-up": (index) => playlist.moveUp(index - 1),
+        "move-down": (index) => playlist.moveDown(index - 1),
+        "remove": (index) => playlist.remove(index - 1)
+    };
+
     updateSidebar();
 
     window.addEventListener("unload", function() {
@@ -16,6 +22,7 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
         playlist.off("play", playlistPlayListener);
         playlist.off("stop", playlistStopListener);
         playlist.off("switch", playlistSwitchListener);
+        playlist.off("remove", updateSidebar);
     });
 
     playlist.on("add", playlistAddListener);
@@ -23,11 +30,16 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
     playlist.on("play", playlistPlayListener);
     playlist.on("stop", playlistStopListener);
     playlist.on("switch", playlistSwitchListener);
+    playlist.on("remove", updateSidebar);
 
     playlistContainer.addEventListener("click", function(event) {
         if(event.target.classList.contains("playlist-item")) {
             let index = parseInt(event.target.querySelector(".index").textContent) - 1;
             playlist.play(index);
+        }
+        else if(event.target.hasAttribute("control")) {
+            let control = event.target.getAttribute("control").split(" ");
+            playlistControls[control[0]](...control.slice(1, control.length));
         }
     });
 

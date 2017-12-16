@@ -35,9 +35,9 @@
                     {{/if}}
                 </div>
                 <div class="controls">
-                    <i class="fa fa-angle-up button smaller" control="move-up {{index - 1}}"></i>
-                    <i class="fa fa-trash-o button smaller" control="delete {{index - 1}}"></i>
-                    <i class="fa fa-angle-down button smaller" control="move-down {{index - 1}}"></i>
+                    <i class="fa fa-angle-up button smaller" control="move-up {{ index }}" title="Move track upwards"></i>
+                    <i class="fa fa-trash-o button smaller" control="remove {{ index }}" title="Remove track"></i>
+                    <i class="fa fa-angle-down button smaller" control="move-down {{ index }}" title="Move track downwards"></i>
                 </div>
             </div>
         </script>
