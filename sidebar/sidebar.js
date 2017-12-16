@@ -9,9 +9,18 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
     var playlist = backgroundPage.playlist;
 
     var playlistControls = {
-        "move-up": (index) => playlist.moveUp(index - 1),
-        "move-down": (index) => playlist.moveDown(index - 1),
-        "remove": (index) => playlist.remove(index - 1)
+        "move-up": function() {
+            var index = this.parentNode.parentNode.children[0].innerHTML;
+            playlist.moveUp(index - 1);
+        },
+        "move-down": function() {
+            var index = this.parentNode.parentNode.children[0].innerHTML;
+            playlist.moveDown(index - 1);
+        },
+        "remove": function() {
+            var index = this.parentNode.parentNode.children[0].innerHTML;
+            playlist.remove(index - 1);
+        }
     };
 
     updateSidebar();
@@ -22,7 +31,7 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
         playlist.off("play", playlistPlayListener);
         playlist.off("stop", playlistStopListener);
         playlist.off("switch", playlistSwitchListener);
-        playlist.off("remove", updateSidebar);
+        playlist.off("remove", playlistRemoveListener);
     });
 
     playlist.on("add", playlistAddListener);
@@ -30,7 +39,7 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
     playlist.on("play", playlistPlayListener);
     playlist.on("stop", playlistStopListener);
     playlist.on("switch", playlistSwitchListener);
-    playlist.on("remove", updateSidebar);
+    playlist.on("remove", playlistRemoveListener);
 
     playlistContainer.addEventListener("click", function(event) {
         if(event.target.classList.contains("playlist-item")) {
@@ -38,8 +47,8 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
             playlist.play(index);
         }
         else if(event.target.hasAttribute("control")) {
-            let control = event.target.getAttribute("control").split(" ");
-            playlistControls[control[0]](...control.slice(1, control.length));
+            let control = event.target.getAttribute("control");
+            playlistControls[control].apply(event.target);
         }
     });
 
@@ -123,6 +132,22 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
         playlistContainer.children[playlist.currentTrack].classList.add("playing");
     }
 
+    function playlistRemoveListener(event) {
+        var index = event.data.index;
+        playlistContainer.children[index].remove();
+
+        for(let i = index; i < playlist.length(); i++) {
+            var indexContainer = playlistContainer.children[i].children[0];
+            indexContainer.innerHTML = indexContainer.innerHTML - 1;
+        }
+
+        if(playlist.nowPlaying() !== null) {
+            if(playlist.currentTrack !== index)
+                document.querySelector(".playlist-item.playing").classList.remove("playing");
+            playlistContainer.children[playlist.currentTrack].classList.add("playing");
+        }
+    }
+
     function updateSidebar() {
         if(playlist.length() > 0) {
             playlistEmptyMessage.classList.add("hidden");
@@ -132,7 +157,8 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
             for(let i = 0; i < playlist.length(); i++)
                 addToView(playlist.get(i));
 
-            playlistContainer.children[playlist.currentTrack].classList.add("playing");
+            if(playlist.nowPlaying() !== null)
+                playlistContainer.children[playlist.currentTrack].classList.add("playing");
         }
     }
 });
