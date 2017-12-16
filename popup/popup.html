@@ -17,7 +17,9 @@
 
             <i id="emptyButton" title="Empty playlist" class="fa fa-trash-o button" gui-element ></i>
 
-            <i id="loopButton" title="Loop" class="fa fa-refresh button" gui-element gui-update="toggleLoopButton"></i>
+            <span id="loopButton" title="Loop track" class="fa fa-refresh button icon-stack" gui-element gui-update="toggleLoopButton">
+                <i class="fa fa-list-ul stack-se hidden"></i>
+            </span>
 
             <i id="muteButton" title="Mute" class="fa fa-volume-off button" gui-element gui-update="toggleMuteButton"></i>
         </div>

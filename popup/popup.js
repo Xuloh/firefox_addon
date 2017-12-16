@@ -71,7 +71,14 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
     });
 
     loopButton.addEventListener("click", function() {
-        audioPlayer.loop = !audioPlayer.loop;
+        if(!audioPlayer.loop && !playlist.loop)
+            audioPlayer.loop = true;
+        else if(audioPlayer.loop && !playlist.loop) {
+            audioPlayer.loop = false;
+            playlist.loop = true;
+        }
+        else
+            playlist.loop = false;
         guiUpdater.updateGUI("loopButton");
     });
 
@@ -196,10 +203,20 @@ function toggleMuteButton() {
 
 // Toggles the loop button
 function toggleLoopButton() {
-    if(this.context.audioPlayer.loop)
+    if(this.context.audioPlayer.loop && !this.context.playlist.loop) {
         loopButton.classList.add("toggled");
-    else
+        loopButton.title = "Loop playlist";
+    }
+    else if(!this.context.audioPlayer.loop && this.context.playlist.loop) {
+        loopButton.classList.add("toggled");
+        loopButton.children[0].classList.remove("hidden");
+        loopButton.title = "No loop";
+    }
+    else {
+        loopButton.children[0].classList.add("hidden");
         loopButton.classList.remove("toggled");
+        loopButton.title = "Loop track";
+    }
 }
 
 // Sets the volume input value to the audio player volume

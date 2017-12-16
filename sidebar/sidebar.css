@@ -115,7 +115,3 @@ body {
 #add-to-playlist * {
     pointer-events: none;
 }
-
-.hidden {
-    display: none !important;
-}
