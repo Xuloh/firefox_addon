@@ -163,6 +163,17 @@ class Playlist extends EventEmitter {
         }
     }
 
+    // Toggles between play and pause, if the playlist is stopped, start it
+    playPause() {
+        if(this.currentTrack === -1)
+            this.playNext();
+        else
+            if(this.audioPlayer.paused)
+                this.audioPlayer.play();
+            else
+                this.audioPlayer.pause();
+    }
+
     play(index) {
         if(index >= 0 && index < this.length()) {
             var track = this.get(index);
