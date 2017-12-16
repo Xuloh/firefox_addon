@@ -21,7 +21,7 @@ class EventEmitter {
         this.eventListeners[event].push(eventListener);
     }
 
-    remove(event, eventListener) {
+    off(event, eventListener) {
         var listenerIndex = this.eventListeners[event].indexOf(eventListener);
         if(listenerIndex > -1)
             this.eventListeners[event].splice(listenerIndex, 1);

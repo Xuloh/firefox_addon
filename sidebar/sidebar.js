@@ -11,11 +11,11 @@ browser.runtime.getBackgroundPage().then(function(backgroundPage) {
     updateSidebar();
 
     window.addEventListener("unload", function() {
-        playlist.remove("add", playlistAddListener);
-        playlist.remove("empty", playlistEmptyListener);
-        playlist.remove("play", playlistPlayListener);
-        playlist.remove("stop", playlistStopListener);
-        playlist.remove("switch", playlistSwitchListener);
+        playlist.off("add", playlistAddListener);
+        playlist.off("empty", playlistEmptyListener);
+        playlist.off("play", playlistPlayListener);
+        playlist.off("stop", playlistStopListener);
+        playlist.off("switch", playlistSwitchListener);
     });
 
     playlist.on("add", playlistAddListener);
