@@ -44,7 +44,7 @@ class Playlist extends EventEmitter {
     // Takes the audio player that will be used by the playlist
     // If an array is given, the playlist is initialised with it
     constructor(audioPlayer, playlist = null) {
-        super(["add", "empty", "play", "stop", "switch"]);
+        super(["add", "empty", "play", "stop", "switch", "remove"]);
 
         this.audioPlayer = audioPlayer;
         this.audioPlayer.addEventListener("ended", () => {
@@ -210,6 +210,24 @@ class Playlist extends EventEmitter {
                 this.currentTrack = index1;
 
             this.trigger("switch", {"index1": index1, "index2": index2});
+        }
+    }
+
+    // Removes the track at the given index
+    remove(index) {
+        if(index >= 0 && index < this.length()) {
+            URL.revokeObjectURL(this.playlist[index].url);
+            this.playlist.splice(index, 1);
+
+            for(let i = index; i < this.length(); i++)
+                this.playlist[i].metadata.index = this.playlist[i].metadata.index - 1;
+
+            if(index >= this.length())
+                this.stop();
+            else
+                this.play(index);
+
+            this.trigger("remove", {"index": index});
         }
     }
 }
