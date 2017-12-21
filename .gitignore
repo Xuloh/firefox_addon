@@ -1,0 +1,3 @@
+# sass files
+*.css.map
+.sass-cache
