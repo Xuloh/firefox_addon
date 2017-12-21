@@ -1,54 +1,44 @@
 .button {
-    color: #000;
-    display: inline-block;
-    font-size: 23px;
-    padding: 5px;
-    text-align: center;
-    width: 34px;
-}
+  color: #000;
+  display: inline-block;
+  font-size: 23px;
+  padding: 5px;
+  text-align: center;
+  width: 34px; }
 
 .button.small {
-    font-size: 18px;
-    width: 27px;
-}
+  font-size: 18px;
+  width: 27px; }
 
 .button.smaller {
-    font-size: 14px;
-    width: 21px;
-}
+  font-size: 14px;
+  width: 21px; }
 
 .button:hover {
-    background-color: rgba(204, 204, 204, 0.3);
-    cursor: pointer;
-}
+  background-color: rgba(204, 204, 204, 0.3);
+  cursor: pointer; }
 
 .button:active, .button.toggled {
-    background-color: rgba(153, 153, 153, 0.3);
-}
+  background-color: rgba(153, 153, 153, 0.3); }
 
 .button-group {
-    align-items: center;
-    display: flex;
-    justify-content: space-around;
-    padding: 5px;
-}
-
-.button-group .fill {
-    flex-grow: 1;
-}
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+  padding: 5px; }
+  .button-group .fill {
+    flex-grow: 1; }
 
 .icon-stack {
-    position: relative;
-}
-
-.icon-stack .fa.stack-se {
+  position: relative; }
+  .icon-stack .fa.stack-se {
     font-size: 0.5em;
     position: absolute;
     bottom: 0px;
     right: 3px;
-    text-shadow: #fff -1px -1px, #fff 1px 1px;
-}
+    text-shadow: #fff -1px -1px, #fff 1px 1px; }
 
 .hidden {
-    display: none !important;
-}
+  display: none !important; }
+
+/*# sourceMappingURL=common.css.map */

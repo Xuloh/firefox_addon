@@ -1,117 +1,86 @@
 body {
-    height: 100vh;
-}
+  height: 100vh; }
 
 #playlist {
-    height: 100%;
-    overflow-y: auto;
-    margin-top: 4px;
-    padding: 0 4px;
-}
+  height: 100%;
+  overflow-y: auto;
+  margin-top: 4px;
+  padding: 0 4px; }
 
 .playlist-item {
-    border: solid 1px #CCC;
-    border-radius: 4px;
-    cursor: pointer;
-    display: flex;
-    margin: 0 4px 4px;
-    overflow: hidden;
-}
-
-.playlist-item * {
-    pointer-events: none;
-}
-
-.playlist-item .index {
+  border: solid 1px #CCC;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  margin: 0 4px 4px;
+  overflow: hidden; }
+  .playlist-item * {
+    pointer-events: none; }
+  .playlist-item .index {
     align-items: center;
     border-right: solid 1px #CCC;
     display: flex;
     justify-content: center;
-    padding: 4px;
-}
-
-.playlist-item .controls {
+    padding: 4px; }
+  .playlist-item .controls {
     align-items: center;
     border-left: solid 1px #CCC;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    pointer-events: auto;
-}
-
-.playlist-item .controls * {
-    pointer-events: auto;
-}
-
-.playlist-item .info {
+    pointer-events: auto; }
+    .playlist-item .controls * {
+      pointer-events: auto; }
+  .playlist-item .info {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
     justify-content: center;
     min-width: 0;
-    padding: 4px;
-}
-
-.playlist-item .title, .playlist-item .artist, .playlist-item .filename {
+    padding: 4px; }
+  .playlist-item .title, .playlist-item .artist, .playlist-item .filename {
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.playlist .title {
-    /* Currently unused */
-}
-
-.playlist-item .by {
-    /* Currently unused */
-}
-
-.playlist-item .artist {
-    /* Currently unused */
-}
-
-.playlist-item .filename {
-    /* Currently unused */
-}
+    white-space: nowrap; }
+  .playlist-item .playlist .title {
+    /* Currently unused */ }
+  .playlist-item .by {
+    /* Currently unused */ }
+  .playlist-item .artist {
+    /* Currently unused */ }
+  .playlist-item .filename {
+    /* Currently unused */ }
 
 .playlist-item.playing, .playlist-item.playing * {
-    border-color: #000;
-}
+  border-color: #000; }
 
 #playlist-empty-message {
-    height: 100%;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    overflow: hidden;
-}
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden; }
 
 #add-to-playlist {
-    height: 70px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border: 3px dashed #CCC;
-    font-size: 1.1em;
-    margin: 5px;
-    padding: 5px;
-}
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px dashed #CCC;
+  font-size: 1.1em;
+  margin: 5px;
+  padding: 5px; }
 
 #add-to-playlist:hover, #add-to-playlist.dragover {
-    background-color: rgba(204, 204, 204, 0.3);
-    border: 3px dashed #000;
-    cursor: pointer;
-}
+  background-color: rgba(204, 204, 204, 0.3);
+  border: 3px dashed #000;
+  cursor: pointer; }
 
 #add-to-playlist:active {
-    background-color: rgba(153, 153, 153, 0.3);
-    border: 3px dashed #000;
-}
+  background-color: rgba(153, 153, 153, 0.3);
+  border: 3px dashed #000; }
 
 #add-to-playlist * {
-    pointer-events: none;
-}
+  pointer-events: none; }
+
+/*# sourceMappingURL=sidebar.css.map */
