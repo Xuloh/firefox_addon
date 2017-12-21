@@ -68,8 +68,8 @@ body {
   justify-content: center;
   border: 3px dashed #CCC;
   font-size: 1.1em;
-  margin: 5px;
-  padding: 5px; }
+  margin: 4px;
+  padding: 4px; }
 
 #add-to-playlist:hover, #add-to-playlist.dragover {
   background-color: rgba(204, 204, 204, 0.3);

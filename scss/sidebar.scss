@@ -1,3 +1,5 @@
+@import 'variables';
+
 body {
     height: 100vh;
 }
@@ -5,16 +7,16 @@ body {
 #playlist {
     height: 100%;
     overflow-y: auto;
-    margin-top: 4px;
-    padding: 0 4px;
+    margin-top: $base-size;
+    padding: 0 $base-size;
 }
 
 .playlist-item {
-    border: solid 1px #CCC;
-    border-radius: 4px;
+    border: solid 1px $light-gray;
+    border-radius: $base-size;
     cursor: pointer;
     display: flex;
-    margin: 0 4px 4px;
+    margin: 0 $base-size $base-size;
     overflow: hidden;
 
     * {
@@ -23,15 +25,15 @@ body {
 
     .index {
         align-items: center;
-        border-right: solid 1px #CCC;
+        border-right: solid 1px $light-gray;
         display: flex;
         justify-content: center;
-        padding: 4px;
+        padding: $base-size;
     }
 
     .controls {
         align-items: center;
-        border-left: solid 1px #CCC;
+        border-left: solid 1px $light-gray;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -48,7 +50,7 @@ body {
         flex-grow: 1;
         justify-content: center;
         min-width: 0;
-        padding: 4px;
+        padding: $base-size;
     }
 
     .title, .artist, .filename {
@@ -95,10 +97,10 @@ body {
     align-items: center;
     justify-content: center;
 
-    border: 3px dashed #CCC;
+    border: 3px dashed $light-gray;
     font-size: 1.1em;
-    margin: 5px;
-    padding: 5px;
+    margin: $base-size;
+    padding: $base-size;
 }
 
 #add-to-playlist:hover, #add-to-playlist.dragover {

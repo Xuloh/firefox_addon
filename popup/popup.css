@@ -1,59 +1,51 @@
 body {
-    background-color: #fff;
-    display: flex;
-    flex-direction: row;
-    width: 300px;
-}
+  background-color: #fff;
+  display: flex;
+  flex-direction: row;
+  width: 300px; }
 
 #player-controls {
-    flex-direction: column;
-    position: relative;
-}
+  flex-direction: column;
+  position: relative; }
 
 #player-controls::after {
-    background-color: #CCC;
-    content: "";
-    top: 8px;
-    bottom: 8px;
-    right: 0;
-    position: absolute;
-    width: 1px;
-    transition: top 0.3s, bottom 0.3s, background-color 0.3s
-}
+  background-color: #CCC;
+  content: "";
+  top: 8px;
+  bottom: 8px;
+  right: 0;
+  position: absolute;
+  width: 1px;
+  transition: top 0.2s, bottom 0.2s, background-color 0.2s; }
 
 #player-controls:hover::after {
-    background-color: #000;
-    top: 4px;
-    bottom: 4px;
-}
+  background-color: #000;
+  top: 4px;
+  bottom: 4px; }
 
 #track-controls {
-    flex-grow: 1;
-    min-width: 0;
-}
+  flex-grow: 1;
+  min-width: 0; }
 
 #nowPlaying {
-    overflow: hidden;
-    padding: 5px;
-    text-align: center;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
+  overflow: hidden;
+  padding: 4px;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap; }
 
 input[type="range"]::-moz-range-thumb {
-    height: 12px;
-    width: 12px;
-    border-radius: 50%;
-}
+  height: 12px;
+  width: 12px;
+  border-radius: 50%; }
 
 input[type="range"]:hover::-moz-range-thumb {
-    background-color: #CCC;
-}
+  background-color: #CCC; }
 
 input[type="range"]:hover {
-    cursor: pointer;
-}
+  cursor: pointer; }
 
 #volumeInput {
-    width: 90px;
-}
+  width: 90px; }
+
+/*# sourceMappingURL=popup.css.map */

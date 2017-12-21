@@ -1,8 +1,10 @@
+@import 'variables';
+
 .button {
     color: #000;
     display: inline-block;
     font-size: 23px;
-    padding: 5px;
+    padding: $base-size;
     text-align: center;
     width: 34px;
 }
@@ -30,7 +32,7 @@
     align-items: center;
     display: flex;
     justify-content: space-around;
-    padding: 5px;
+    padding: $base-size;
 
     .fill {
         flex-grow: 1;
@@ -44,7 +46,7 @@
         font-size: 0.5em;
         position: absolute;
         bottom: 0px;
-        right: 3px;
+        right: $base-size;
         text-shadow: #fff -1px -1px, #fff 1px 1px;
     }
 }
