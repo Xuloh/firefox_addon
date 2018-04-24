@@ -23,6 +23,20 @@
         </div>
 
         <div id="track-controls">
+            <div id="nowPlaying" gui-element gui-update="switchNowPlaying">
+                Nothing playing
+            </div>
+
+            <div class="button-group">
+                <span>
+                    <span id="currentTimeLabel" gui-element >0:00</span>
+                    /
+                    <span id="durationLabel" gui-element gui-update="setDurationLabel">0:00</span>
+                </span>
+
+                <input id="currentTimeInput" class="fill" type="range" min="0" max="1" value="0" step="1" disabled gui-element gui-update="setCurrentTimeInput"/>
+            </div>
+
             <div class="button-group">
                 <i id="previousButton" title="Previous" class="fa fa-backward button small" gui-element ></i>
 
@@ -45,20 +59,6 @@
                 <input id="volumeInput" type="range" title="Volume" min="0" max="1" step="0.01" value="1" gui-element gui-update="setVolumeInputValue"/>
 
                 <i id="volumeUpButton" title="Volume up" class="fa fa-volume-up button" gui-element ></i>
-            </div>
-
-            <div id="nowPlaying" gui-element gui-update="switchNowPlaying">
-                Nothing playing
-            </div>
-
-            <div class="button-group">
-                <span>
-                    <span id="currentTimeLabel" gui-element >0:00</span>
-                    /
-                    <span id="durationLabel" gui-element gui-update="setDurationLabel">0:00</span>
-                </span>
-
-                <input id="currentTimeInput" class="fill" type="range" min="0" max="1" value="0" step="1" disabled gui-element gui-update="setCurrentTimeInput"/>
             </div>
         </div>
 
